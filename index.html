@@ -1,0 +1,3082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#05070d">
+<meta name="color-scheme" content="dark">
+<meta name="description" content="ASTRA guild member handbook: who we are, what we do, rewards and distribution, field boss rules, and where to get help.">
+<title>ASTRA — Member Information</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+(function () {
+  document.documentElement.classList.add('js');
+})();
+</script>
+<style>
+:root {
+  --bg: #05070d;
+  --surface: #0d1119;
+  --line: #1e2536;
+  --blue: #4c8bf5;
+  --blue-dim: #2f5eab;
+  --blue-text: #a8c6ff;
+  --blue-label: #7ea2d6;
+  --text: #e6ebf5;
+  --muted: #94a2bd;
+  --red: #f17d7d;
+  --card-bg: #0f1522;
+  --card-line: #25324d;
+  --chip-bg: rgba(10, 14, 22, 0.86);
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --font-sans: Inter, "Apple SD Gothic Neo", "Malgun Gothic", "Hiragino Sans", "Yu Gothic", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-display: Georgia, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, "SFMono-Regular", "Cascadia Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+/* Korean and Japanese use CJK sans faces (no italics, no wide tracking) */
+html:lang(ko) {
+  --font-sans: Inter, "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --font-display: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  word-break: keep-all;
+}
+
+html:lang(ja) {
+  --font-sans: Inter, "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, system-ui, sans-serif;
+  --font-display: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", Meiryo, system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  background: var(--bg);
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.72;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+html:lang(ko) body { line-height: 1.85; }
+html:lang(ja) body { line-height: 1.85; line-break: strict; }
+
+::selection { background: rgba(76, 139, 245, 0.35); color: #ffffff; }
+
+a { color: var(--blue-text); }
+
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Fixed background layers ---------- */
+
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(ellipse 75% 70% at 50% 45%, rgba(5, 7, 13, 0) 55%, rgba(2, 3, 7, 0.72) 100%);
+}
+
+.top-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0.75;
+  background: linear-gradient(90deg, rgba(76, 139, 245, 0) 0%, #4c8bf5 25%, #a8c6ff 50%, #4c8bf5 75%, rgba(76, 139, 245, 0) 100%);
+  background-size: 200% 100%;
+  animation: topSweep 14s ease-in-out infinite alternate;
+}
+
+@keyframes topSweep {
+  from { background-position: 0% 50%; }
+  to { background-position: 100% 50%; }
+}
+
+/* Reading progress */
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  z-index: 71;
+  pointer-events: none;
+  background: linear-gradient(90deg, var(--blue-dim), var(--blue) 60%, #dce8ff);
+  box-shadow: 0 0 12px rgba(76, 139, 245, 0.8);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+
+/* ---------- Fixed UI: topbar ---------- */
+
+.topbar {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  z-index: 60;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.topbar > * { pointer-events: auto; }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  height: 32px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: var(--chip-bg);
+  border: 1px solid var(--card-line);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--blue-label);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.chip-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 10px rgba(76, 139, 245, 0.9);
+}
+
+.lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  background: var(--chip-bg);
+  border: 1px solid var(--card-line);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.lang button {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  padding: 8px 11px;
+  min-height: 30px;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.lang button:hover { color: var(--text); }
+
+.lang button[aria-pressed="true"] {
+  background: var(--blue);
+  color: #04101f;
+}
+
+/* ---------- Sticky handbook navigation ---------- */
+
+/* Mobile and tablet: a pinned strip that appears after the hero */
+.toc {
+  position: fixed;
+  top: 50px;
+  left: 0;
+  right: 0;
+  z-index: 55;
+  background: rgba(10, 14, 22, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.3s ease, transform 0.3s var(--ease), visibility 0.3s;
+}
+
+.toc.is-on {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+}
+
+.toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 8px 12px;
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.toc-list::-webkit-scrollbar { display: none; }
+
+.toc-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 34px;
+  padding: 6px 12px;
+  border: 1px solid var(--card-line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.toc-list a:hover { color: var(--text); }
+
+.toc-list .n {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--blue-label);
+  font-variant-numeric: tabular-nums;
+}
+
+.toc-list a[aria-current="true"] {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #04101f;
+}
+
+.toc-list a[aria-current="true"] .n { color: #04101f; }
+
+/* ---------- Layout ---------- */
+
+main {
+  position: relative;
+  z-index: 2;
+}
+
+.section {
+  position: relative;
+  padding: 84px 0;
+  scroll-margin-top: 110px;
+}
+
+.section + .section { border-top: 1px solid var(--line); }
+
+.hero {
+  padding: 150px 0 84px;
+  text-align: center;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.head {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 18px;
+  font-size: 10px;
+  line-height: 1.4;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--blue-label);
+}
+
+.label::before {
+  content: "";
+  display: block;
+  flex: 0 0 22px;
+  width: 22px;
+  height: 1px;
+  background: var(--blue-label);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--blue-text);
+  margin: 0;
+}
+
+h2 {
+  font-size: clamp(32px, 4.4vw, 44px);
+  line-height: 1.15;
+  letter-spacing: -0.005em;
+}
+
+h3 {
+  font-size: 20px;
+  line-height: 1.3;
+  margin: 0 0 8px;
+}
+
+p { margin: 0 0 16px; }
+
+.lead {
+  font-size: 19px;
+  line-height: 1.62;
+  color: var(--text);
+  margin: 0 0 18px;
+}
+
+.muted { color: var(--muted); }
+
+.gap-top { margin-top: 16px; }
+
+/* ---------- Welcome ---------- */
+
+.hero-title {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: clamp(64px, 11vw, 134px);
+  line-height: 0.92;
+  letter-spacing: 0.01em;
+  margin: 0 0 22px;
+  padding-bottom: 0.04em;
+  background: linear-gradient(100deg, #a8c6ff 0%, #a8c6ff 38%, #ffffff 50%, #4c8bf5 58%, #a8c6ff 70%, #a8c6ff 100%);
+  background-size: 250% 100%;
+  background-position: 100% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: sheen 9s linear infinite;
+}
+
+@keyframes sheen {
+  from { background-position: 100% 50%; }
+  to { background-position: 0% 50%; }
+}
+
+.tagline,
+.kicker-lead {
+  font-family: var(--font-display);
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--blue-text);
+}
+
+.tagline {
+  font-size: clamp(20px, 2.6vw, 26px);
+  margin: 0 0 34px;
+}
+
+.kicker-lead {
+  font-size: 20px;
+  margin: 0 0 14px;
+}
+
+.divider {
+  display: block;
+  width: 64px;
+  height: 1px;
+  margin: 0 auto 34px;
+  border: 0;
+  background: linear-gradient(90deg, transparent, var(--blue), transparent);
+}
+
+/* ---------- Subheads ---------- */
+
+.subhead {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 44px 0 16px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--blue-label);
+}
+
+.subhead::after {
+  content: "";
+  flex: 1 1 auto;
+  height: 1px;
+  background: linear-gradient(90deg, var(--card-line), transparent);
+}
+
+.kicker {
+  margin: 22px 0 10px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--blue-label);
+}
+
+/* Inline channel names, marked automatically wherever "#name" appears */
+.ch {
+  display: inline;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  line-height: 1.5;
+  color: var(--blue-text);
+  background: rgba(76, 139, 245, 0.12);
+  border: 1px solid rgba(76, 139, 245, 0.3);
+  border-radius: 6px;
+  padding: 0.1em 0.38em;
+  margin: 0 0.08em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* Channel pill (standalone channel names) */
+.channel {
+  display: inline-block;
+  margin: 0 0 12px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(76, 139, 245, 0.45);
+  background: rgba(76, 139, 245, 0.12);
+  color: var(--blue-text);
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.channel-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 12px;
+}
+
+.channel-row .channel { margin: 0; }
+
+.amp {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ---------- Lists ---------- */
+
+ul.points {
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+}
+
+ul.points > li {
+  position: relative;
+  margin: 0;
+  padding: 11px 0 11px 22px;
+  border-top: 1px solid var(--line);
+  color: var(--text);
+}
+
+ul.points > li:first-child { border-top: 0; }
+
+ul.points > li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: calc(11px + 0.67em);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 8px rgba(76, 139, 245, 0.55);
+}
+
+ul.points > li strong {
+  color: var(--blue-text);
+  font-weight: 600;
+}
+
+/* Numbered list: badge is absolutely positioned so inline content
+   (including channel pills) flows as normal text and never overlaps. */
+ol.num {
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+  counter-reset: item;
+}
+
+ol.num > li {
+  counter-increment: item;
+  position: relative;
+  padding: 14px 0 14px 48px;
+  border-bottom: 1px solid var(--line);
+  color: var(--text);
+}
+
+ol.num > li:first-child { padding-top: 6px; }
+
+ol.num > li:last-child { border-bottom: 0; }
+
+ol.num > li::before {
+  content: counter(item);
+  position: absolute;
+  left: 0;
+  top: 12px;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--card-line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--blue-text);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+ol.num > li:first-child::before { top: 4px; }
+
+/* ---------- Cards ---------- */
+
+.grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr;
+}
+
+.stack {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .grid { grid-template-columns: 1fr 1fr; }
+  .grid .wide { grid-column: 1 / -1; }
+}
+
+.card,
+.step,
+.connect {
+  position: relative;
+  overflow: hidden;
+  padding: 23px 22px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-line);
+  border-radius: 10px;
+  color: var(--text);
+  text-align: left;
+  transform: perspective(750px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.45s var(--ease), border-color 0.35s ease, box-shadow 0.45s ease;
+}
+
+.card::after,
+.step::after,
+.connect::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle 240px at var(--mx, 50%) var(--my, 50%), rgba(168, 198, 255, 0.16), rgba(76, 139, 245, 0.04) 45%, transparent 70%);
+  transition: opacity 0.4s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover,
+  .step:hover,
+  .connect:hover {
+    transform: perspective(750px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-3px);
+    border-color: #34466f;
+    box-shadow: 0 18px 40px -24px rgba(76, 139, 245, 0.5);
+  }
+
+  .card:hover::after,
+  .step:hover::after,
+  .connect:hover::after { opacity: 1; }
+}
+
+.card p,
+.connect p,
+.step p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.card .idx {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--blue-label);
+}
+
+.card h3 { margin-bottom: 8px; }
+
+.card .summary,
+.connect .summary {
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.card ul.points,
+.connect ul.points { margin: 14px 0 0; }
+
+.card ul.points > li,
+.connect ul.points > li {
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.card ul.points > li::before,
+.connect ul.points > li::before { top: calc(11px + 0.6em); }
+
+.card ol.num,
+.connect ol.num { margin: 14px 0 0; }
+
+.card ol.num > li,
+.connect ol.num > li {
+  font-size: 15px;
+  line-height: 1.65;
+  padding-left: 44px;
+}
+
+.card ol.num > li::before,
+.connect ol.num > li::before {
+  width: 28px;
+  height: 28px;
+  font-size: 11.5px;
+}
+
+.card p + p { margin-top: 10px; }
+
+.connect { display: block; }
+
+/* Register card */
+
+.step h3 {
+  margin: 0 0 10px;
+  font-size: 21px;
+}
+
+.step .btn-primary { margin: 18px 0 0; }
+
+.step .note {
+  margin: 14px 0 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.step .note + .note { margin-top: 8px; }
+
+/* ---------- Discord notice (Section 02) ---------- */
+
+.notice {
+  position: relative;
+  margin: 8px 0;
+  padding: 26px 24px 24px;
+  border-radius: 14px;
+  background: radial-gradient(120% 140% at 0% 0%, rgba(76, 139, 245, 0.2), rgba(76, 139, 245, 0.03) 60%), var(--surface);
+  border: 1px solid rgba(76, 139, 245, 0.5);
+  box-shadow: 0 0 0 4px rgba(76, 139, 245, 0.07), 0 24px 50px -30px rgba(76, 139, 245, 0.6);
+}
+
+.notice-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.notice-pulse {
+  position: relative;
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.notice-pulse i {
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 12px rgba(76, 139, 245, 0.9);
+}
+
+.notice-pulse::before,
+.notice-pulse::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(76, 139, 245, 0.6);
+  animation: pulseRing 2.8s ease-out infinite;
+}
+
+.notice-pulse::after { animation-delay: 1.4s; }
+
+@keyframes pulseRing {
+  0% { transform: scale(0.45); opacity: 0.9; }
+  100% { transform: scale(2.3); opacity: 0; }
+}
+
+.notice h3 {
+  font-size: 26px;
+  line-height: 1.2;
+  color: var(--blue-text);
+}
+
+.notice p {
+  margin: 0 0 12px;
+  color: var(--text);
+}
+
+.notice p.strong {
+  margin-bottom: 0;
+  font-weight: 600;
+  color: var(--blue-text);
+}
+
+.notice p.strong + p.strong { margin-top: 6px; }
+
+/* ---------- Transparency flow (Section 03) ---------- */
+
+.flow {
+  list-style: none;
+  margin: 28px 0 10px;
+  padding: 0;
+  position: relative;
+}
+
+.flow::before {
+  content: "";
+  position: absolute;
+  left: 17px;
+  top: 26px;
+  bottom: 26px;
+  width: 2px;
+  background: linear-gradient(180deg, rgba(76, 139, 245, 0.25), rgba(76, 139, 245, 0.75));
+}
+
+.flow li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 8px 0;
+}
+
+.flow .node {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid rgba(76, 139, 245, 0.6);
+  color: var(--blue-text);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  box-shadow: 0 0 0 4px var(--bg);
+}
+
+.flow li p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.flow li:last-child .node {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #04101f;
+  box-shadow: 0 0 0 4px var(--bg), 0 0 18px rgba(76, 139, 245, 0.6);
+}
+
+.flow li:last-child p {
+  color: var(--blue-text);
+  font-weight: 600;
+}
+
+.pull {
+  margin: 34px 0 26px;
+  padding: 6px 0 6px 20px;
+  border-left: 3px solid var(--blue);
+  font-family: var(--font-display);
+  font-size: clamp(21px, 2.8vw, 26px);
+  line-height: 1.4;
+  color: var(--blue-text);
+}
+
+/* ---------- Panels ---------- */
+
+.panel {
+  margin-top: 22px;
+  padding: 22px 24px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  text-align: left;
+}
+
+.panel p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.panel + .muted { margin-top: 16px; }
+
+/* ---------- Guild Support Items warning (Section 03) ---------- */
+
+.alert {
+  margin: 44px 0 0;
+  padding: 26px 24px 22px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(241, 125, 125, 0.12), rgba(241, 125, 125, 0.02)), var(--surface);
+  border: 1px solid rgba(241, 125, 125, 0.6);
+  box-shadow: inset 4px 0 0 var(--red), 0 24px 50px -34px rgba(241, 125, 125, 0.55);
+}
+
+.alert-kicker {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+
+.alert h3 {
+  margin: 0 0 12px;
+  font-size: clamp(23px, 3vw, 28px);
+  line-height: 1.25;
+  color: #ffffff;
+}
+
+.alert > p {
+  margin: 0;
+  color: var(--text);
+}
+
+.alert ul {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+}
+
+.alert li {
+  position: relative;
+  margin: 0;
+  padding: 11px 0 11px 22px;
+  border-top: 1px solid rgba(241, 125, 125, 0.22);
+  color: var(--text);
+}
+
+.alert li:first-child { border-top: 0; }
+
+.alert li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: calc(11px + 0.67em);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--red);
+}
+
+/* ---------- Buttons ---------- */
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 14px 22px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--blue);
+  color: #04101f;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.25s var(--ease), background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover {
+    background: #6aa0ff;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px -12px rgba(76, 139, 245, 0.75);
+  }
+}
+
+.btn-primary:active { transform: translateY(0); }
+
+.btn-block {
+  display: flex;
+  width: 100%;
+}
+
+/* ---------- Bonus step (subtle collapsible) ---------- */
+
+.bonus {
+  text-align: center;
+}
+
+.bonus-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 34px;
+  padding: 8px 14px;
+  border: 1px solid var(--card-line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--blue-label);
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  cursor: pointer;
+  list-style: none;
+  transition: border-color 0.25s ease, color 0.25s ease, background-color 0.25s ease;
+}
+
+.bonus-toggle::-webkit-details-marker { display: none; }
+
+.bonus-toggle::marker { content: ""; }
+
+.bonus-toggle:hover {
+  border-color: rgba(76, 139, 245, 0.5);
+  color: var(--blue-text);
+  background: rgba(76, 139, 245, 0.05);
+}
+
+.bonus[open] .bonus-toggle {
+  border-color: rgba(76, 139, 245, 0.45);
+  color: var(--blue-text);
+}
+
+.bonus .plus {
+  position: relative;
+  flex: 0 0 10px;
+  width: 10px;
+  height: 10px;
+}
+
+.bonus .plus::before,
+.bonus .plus::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4.5px;
+  width: 10px;
+  height: 1px;
+  background: currentColor;
+  transition: transform 0.3s var(--ease);
+}
+
+.bonus .plus::after { transform: rotate(90deg); }
+
+.bonus[open] .plus::after { transform: rotate(0deg); }
+
+.bonus-body {
+  max-width: 560px;
+  margin: 22px auto 0;
+  padding: 22px 22px 24px;
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--card-line);
+  border-radius: 10px;
+}
+
+.bonus-body > p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.quote {
+  margin: 18px 0;
+  padding: 16px 18px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-line);
+  border-left: 3px solid var(--blue);
+  border-radius: 10px;
+}
+
+.quote p {
+  margin: 0;
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.copy-btn { margin-top: 2px; }
+
+/* ---------- CJK refinements (Korean & Japanese) ---------- */
+
+html:lang(ko) h2,
+html:lang(ko) h3,
+html:lang(ja) h2,
+html:lang(ja) h3 {
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+html:lang(ko) .tagline,
+html:lang(ja) .tagline,
+html:lang(ko) .kicker-lead,
+html:lang(ja) .kicker-lead {
+  font-style: normal;
+  font-weight: 400;
+}
+
+html:lang(ko) .label,
+html:lang(ja) .label {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+
+html:lang(ko) .subhead,
+html:lang(ja) .subhead {
+  font-size: 13px;
+  letter-spacing: 0.06em;
+}
+
+html:lang(ko) .kicker,
+html:lang(ja) .kicker,
+html:lang(ko) .alert-kicker,
+html:lang(ja) .alert-kicker {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+html:lang(ko) .chip,
+html:lang(ja) .chip,
+html:lang(ko) .bonus-toggle,
+html:lang(ja) .bonus-toggle,
+html:lang(ko) .btn-primary,
+html:lang(ja) .btn-primary {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+html:lang(ko) .chip,
+html:lang(ja) .chip { font-size: 11px; }
+
+html:lang(ko) .lang button,
+html:lang(ja) .lang button {
+  font-size: 12px;
+  letter-spacing: 0;
+}
+
+html:lang(ko) .toc-list a,
+html:lang(ja) .toc-list a { font-size: 13px; }
+
+html:lang(ko) .notice h3,
+html:lang(ja) .notice h3 { font-size: 24px; }
+
+/* ---------- Scroll reveal ---------- */
+
+@keyframes rise {
+  from { opacity: 0; translate: 0 18px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+.js .reveal { opacity: 0; }
+
+.js .reveal.in {
+  opacity: 1;
+  animation: rise 0.9s var(--ease) var(--d, 0ms) both;
+}
+
+/* ---------- Desktop: sticky left rail ---------- */
+
+@media (min-width: 1200px) {
+  .toc {
+    top: 50%;
+    left: max(20px, calc(50% - 620px));
+    right: auto;
+    width: 210px;
+    background: none;
+    border: 0;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(-50%);
+  }
+
+  .toc.is-on { transform: translateY(-50%); }
+
+  .toc-list {
+    flex-direction: column;
+    gap: 2px;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .toc-list a {
+    position: relative;
+    min-height: 0;
+    padding: 8px 12px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .toc-list a:hover { background: rgba(76, 139, 245, 0.06); }
+
+  .toc-list a[aria-current="true"] {
+    background: rgba(76, 139, 245, 0.12);
+    color: var(--blue-text);
+  }
+
+  .toc-list a[aria-current="true"]::before {
+    content: "";
+    position: absolute;
+    left: -10px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    border-radius: 2px;
+    background: var(--blue);
+  }
+
+  .toc-list a[aria-current="true"] .n { color: var(--blue-text); }
+
+  .section { scroll-margin-top: 40px; }
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 640px) {
+  .section { padding: 74px 0; }
+  .hero { padding: 132px 0 74px; }
+  .wrap { padding: 0 20px; }
+  .topbar { top: 12px; left: 12px; right: 12px; }
+  .toc { top: 50px; }
+  .chip {
+    height: 30px;
+    padding: 0 12px;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+  }
+  .lang button { padding: 7px 9px; }
+  .card,
+  .step,
+  .connect { padding: 20px 18px; }
+  .notice { padding: 22px 18px 20px; }
+  .notice h3 { font-size: 23px; }
+  .panel { padding: 20px; }
+  .alert { padding: 22px 18px 18px; }
+  .bonus-body { padding: 20px 18px 22px; }
+  .lead { font-size: 18px; }
+  ul.points > li { padding-left: 20px; }
+  ol.num > li { padding-left: 42px; }
+  ol.num > li::before {
+    width: 28px;
+    height: 28px;
+    font-size: 11.5px;
+  }
+  .flow li { gap: 14px; }
+}
+
+@media (max-width: 400px) {
+  .chip { letter-spacing: 0.12em; }
+  .chip-dot { display: none; }
+  .lang button {
+    padding: 6px 7px;
+    font-size: 10.5px;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+
+  .js .reveal { opacity: 1 !important; }
+
+  .notice-pulse::before,
+  .notice-pulse::after { opacity: 0.5; transform: scale(1.4); }
+
+  .card:hover,
+  .step:hover,
+  .connect:hover,
+  .btn-primary:hover { transform: none !important; }
+
+  .hero-title { background-position: 62% 50%; }
+}
+
+/* ---------- Print ---------- */
+
+@media print {
+  @page { margin: 16mm; }
+
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  body {
+    font-size: 11.5pt;
+    line-height: 1.55;
+  }
+
+  #bg-canvas,
+  .vignette,
+  .top-line,
+  .progress,
+  .topbar,
+  .toc,
+  .btn-primary,
+  .chip,
+  .lang,
+  #bonus { display: none !important; }
+
+  main { z-index: auto; }
+
+  .section {
+    padding: 22px 0;
+    border-top: 1px solid #bbbbbb !important;
+  }
+
+  .hero { padding: 0 0 18px; }
+
+  .hero-title {
+    background: none !important;
+    -webkit-text-fill-color: #000000 !important;
+    color: #000000 !important;
+    animation: none !important;
+    font-size: 58pt;
+    line-height: 1;
+  }
+
+  h1, h2, h3,
+  .tagline,
+  .kicker-lead,
+  .label,
+  .subhead,
+  .kicker,
+  .pull,
+  .notice h3,
+  .alert h3,
+  .alert-kicker {
+    color: #000000 !important;
+  }
+
+  .label::before { background: #000000 !important; }
+
+  .subhead::after { background: #999999 !important; }
+
+  p, li, .lead, .muted,
+  .card p, .connect p, .step p, .panel p,
+  .card .summary, .connect .summary,
+  .notice p, .flow li p, .alert > p, .alert li {
+    color: #000000 !important;
+  }
+
+  .card,
+  .step,
+  .connect,
+  .panel,
+  .notice,
+  .alert {
+    background: #ffffff !important;
+    border: 1px solid #888888 !important;
+    box-shadow: none !important;
+    transform: none !important;
+    color: #000000 !important;
+    break-inside: avoid;
+  }
+
+  .alert { border-left: 4px solid #000000 !important; }
+
+  .card::after,
+  .step::after,
+  .connect::after { display: none; }
+
+  .notice-pulse { display: none; }
+
+  .channel,
+  .ch {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 1px solid #666666 !important;
+  }
+
+  .amp { color: #000000 !important; }
+
+  ul.points > li,
+  .alert li { border-top: 1px solid #cccccc; }
+
+  ul.points > li::before,
+  .alert li::before {
+    background: #000000 !important;
+    box-shadow: none !important;
+  }
+
+  ul.points > li strong { color: #000000 !important; }
+
+  ol.num > li { border-bottom: 1px solid #cccccc; }
+
+  ol.num > li::before {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border-color: #666666 !important;
+  }
+
+  .flow::before { background: #999999 !important; }
+
+  .flow .node {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 1px solid #000000 !important;
+    box-shadow: none !important;
+  }
+
+  .flow li:last-child .node {
+    background: #000000 !important;
+    color: #ffffff !important;
+  }
+
+  .pull { border-left-color: #000000 !important; }
+
+  .reveal,
+  .js .reveal {
+    opacity: 1 !important;
+    animation: none !important;
+    translate: none !important;
+  }
+
+  .wrap {
+    max-width: none;
+    padding: 0;
+  }
+
+  a {
+    color: #000000;
+    text-decoration: underline;
+  }
+
+  h2, h3, .subhead, .kicker { break-after: avoid; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+<div class="vignette" aria-hidden="true"></div>
+<div class="top-line" aria-hidden="true"></div>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<header class="topbar">
+  <span class="chip">
+    <span class="chip-dot" aria-hidden="true"></span>
+    <span data-i18n="chip.brand">ASTRA Members</span>
+  </span>
+  <div class="lang" role="group" data-i18n-aria="lang.label" aria-label="Language">
+    <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
+    <button type="button" data-lang="ko" aria-pressed="false" lang="ko">한국어</button>
+    <button type="button" data-lang="jp" aria-pressed="false" lang="ja">日本語</button>
+  </div>
+</header>
+
+<nav class="toc" id="toc" data-i18n-aria="toc.label" aria-label="Handbook sections">
+  <ul class="toc-list">
+    <li><a href="#welcome"><span class="n">00</span><span data-i18n="toc.welcome">Welcome</span></a></li>
+    <li><a href="#who"><span class="n">01</span><span data-i18n="toc.who">Who We Are</span></a></li>
+    <li><a href="#activities"><span class="n">02</span><span data-i18n="toc.what">What We Do</span></a></li>
+    <li><a href="#rewards"><span class="n">03</span><span data-i18n="toc.rewards">Rewards &amp; Distribution</span></a></li>
+    <li><a href="#boss"><span class="n">04</span><span data-i18n="toc.boss">Field Boss Rules</span></a></li>
+    <li><a href="#feedback"><span class="n">05</span><span data-i18n="toc.feedback">Feedback &amp; Inquiries</span></a></li>
+    <li><a href="#website"><span class="n">06</span><span data-i18n="toc.website">Website</span></a></li>
+  </ul>
+</nav>
+
+<main id="content">
+
+  <!-- 00 — WELCOME -->
+  <section class="section hero" id="welcome" aria-labelledby="welcome-title">
+    <div class="wrap">
+      <p class="label reveal" data-i18n="w.label">Welcome to</p>
+      <h1 class="hero-title" id="welcome-title" data-i18n="w.title">ASTRA</h1>
+      <p class="tagline reveal" data-i18n="w.tagline">Together, we rise.</p>
+      <hr class="divider reveal" aria-hidden="true">
+      <p class="lead reveal" data-i18n="w.value">We value fairness, respect, unity, and transparency.</p>
+      <p class="reveal" data-i18n="w.grow">We grow stronger together — through shared events, clear rules, regular communication, and honest effort.</p>
+    </div>
+  </section>
+
+  <!-- 01 — WHO WE ARE -->
+  <section class="section" id="who" aria-labelledby="who-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="label reveal" data-i18n="who.label">Section 01</p>
+        <h2 class="reveal" id="who-title" data-i18n="who.title">Who We Are</h2>
+      </div>
+      <p class="lead reveal" data-i18n="who.mission">Our mission is to help each other become stronger through fairness, respect, and unity — while enjoying the game together.</p>
+      <p class="reveal" data-i18n="who.welcome">We welcome players of all skill levels who share our values and are willing to contribute to the team.</p>
+
+      <div class="stack">
+        <article class="card reveal">
+          <span class="idx">01</span>
+          <h3 data-i18n="fair.t">Fairness</h3>
+          <p class="summary" data-i18n="fair.sum">Rewards and opportunities are earned through effort, participation, and progression needs. The same rules apply to every member.</p>
+          <ul class="points" role="list">
+            <li><strong data-i18n="fair.1l">Be honest.</strong> <span data-i18n="fair.1b">No stealing, lying, or false excuses to obtain items.</span></li>
+            <li><strong data-i18n="fair.2l">Use guild support responsibly.</strong> <span data-i18n="fair.2b">Guild items are meant to strengthen your character. See Rewards &amp; Distribution for details.</span></li>
+          </ul>
+        </article>
+
+        <article class="card reveal">
+          <span class="idx">02</span>
+          <h3 data-i18n="res.t">Respect</h3>
+          <p class="summary" data-i18n="res.sum">Treat others with courtesy, both inside the guild and in the wider community.</p>
+          <ul class="points" role="list">
+            <li><strong data-i18n="res.1l">Communicate respectfully.</strong> <span data-i18n="res.1b">Feedback and disagreements are welcome when handled calmly.</span></li>
+            <li><strong data-i18n="res.2l">No toxicity.</strong> <span data-i18n="res.2b">Disrespect, harassment, and aggression toward members will not be tolerated.</span></li>
+            <li><strong data-i18n="res.3l">Represent the guild well.</strong> <span data-i18n="res.3b">No arguing, baiting, or drama in world chat — even when provoked.</span></li>
+            <li><strong data-i18n="res.4l">Keep guild matters private.</strong> <span data-i18n="res.4b">Bring disputes to a Leader.</span></li>
+          </ul>
+        </article>
+
+        <article class="card reveal">
+          <span class="idx">03</span>
+          <h3 data-i18n="uni.t">Unity</h3>
+          <p class="summary" data-i18n="uni.sum">We rise together — one guild, one team.</p>
+          <p data-i18n="uni.p">Contribute where you can, cooperate during activities, and help fellow members grow.</p>
+        </article>
+
+        <article class="card reveal">
+          <span class="idx">04</span>
+          <h3 data-i18n="acc.t">Accountability</h3>
+          <p class="summary" data-i18n="acc.sum">Honor your commitments and own your actions. Mistakes are part of learning; repeatedly ignoring the rules is not.</p>
+          <ul class="points" role="list">
+            <li><strong data-i18n="acc.1l">Stay active on Discord</strong> <span data-i18n="acc.1b">— announcements go there first.</span></li>
+            <li><strong data-i18n="acc.2l">Communicate your availability</strong> <span data-i18n="acc.2b">— tell Leaders early about absences.</span></li>
+            <li><strong data-i18n="acc.3l">Keep Leaders informed</strong> <span data-i18n="acc.3b">— IGN changes, character sales, status changes.</span></li>
+            <li><strong data-i18n="acc.4l">Use your profile notes</strong> <span data-i18n="acc.4b">— share updates with the guild (but still notify Leaders directly for important changes).</span></li>
+          </ul>
+        </article>
+
+        <article class="card reveal">
+          <span class="idx">05</span>
+          <h3 data-i18n="fun.t">Fun</h3>
+          <p class="summary" data-i18n="fun.sum">This is a game.</p>
+          <p data-i18n="fun.p">Enjoy it, make memories, and have fun — without taking that enjoyment away from others.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 — WHAT WE DO -->
+  <section class="section" id="activities" aria-labelledby="activities-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="label reveal" data-i18n="act.label">Section 02</p>
+        <h2 class="reveal" id="activities-title" data-i18n="act.title">What We Do</h2>
+      </div>
+
+      <div class="notice reveal" role="note" aria-labelledby="notice-title">
+        <div class="notice-head">
+          <span class="notice-pulse" aria-hidden="true"><i></i></span>
+          <h3 id="notice-title" data-i18n="disc.h">Stay Active on Discord</h3>
+        </div>
+        <p data-i18n="disc.p1">Discord is the heart of our coordination. All activities below are subject to change based on the Server or World situation. Schedules, group assignments, rally calls, and live updates are posted there first.</p>
+        <p class="strong" data-i18n="disc.p2">Check Discord often — before, during, and after events.</p>
+        <p class="strong" data-i18n="disc.p3">Missing an announcement means missing out.</p>
+      </div>
+
+      <h3 class="subhead reveal" data-i18n="act.daily">Daily Operations</h3>
+      <div class="grid">
+        <article class="card reveal">
+          <h3 data-i18n="act.fb">Field Boss Raids</h3>
+          <p data-i18n="act.fbp">Participation is encouraged. Members earn attendance points through verified participation.</p>
+        </article>
+        <article class="card reveal">
+          <h3 data-i18n="act.vc">Voice Chat Hangouts</h3>
+          <p data-i18n="act.vcp">- Get to know each other and fast relay of information</p>
+        </article>
+      </div>
+
+      <h3 class="subhead reveal" data-i18n="act.weekly">Weekly Raids &amp; Events</h3>
+      <div class="grid">
+        <article class="card reveal">
+          <h3 data-i18n="act.gvg">Guild vs. Guild (GvG)</h3>
+          <p data-i18n="act.gvgp">Scheduled for Friday and Saturday. Attendance is expected from available members.</p>
+        </article>
+        <article class="card reveal">
+          <h3 data-i18n="act.yama">Yama Hard (125k CP)</h3>
+          <p data-i18n="act.yamap">Organized raid parties run on Saturday and Sunday — around four runs across the two days, afternoon and evening.</p>
+        </article>
+        <article class="card reveal wide">
+          <h3 data-i18n="act.gb">Guild Boss</h3>
+          <p data-i18n="act.gbp">Held on Sunday, typically after Rakajeth / Tumier.</p>
+        </article>
+      </div>
+
+      <h3 class="subhead reveal" data-i18n="act.world">World &amp; Continent Battles</h3>
+      <div class="grid">
+        <article class="card reveal">
+          <h3 data-i18n="act.kr">Alliance War &amp; Raids — Kransia</h3>
+          <p data-i18n="act.krp">Major continent battles. Strategies and assignments are shared through Discord.</p>
+        </article>
+        <article class="card reveal">
+          <h3 data-i18n="act.svs">Server vs. Server — Corrosion Rift</h3>
+          <p data-i18n="act.svsp">The battle for Bahel. Keep 1–2 hours of dungeon time available so you are not locked out when the announcement to start comes.</p>
+        </article>
+        <article class="card reveal wide">
+          <h3 data-i18n="act.maint">Maintenance Boss Spawns</h3>
+          <p data-i18n="act.maintp">After every maintenance, groups are assigned to maximize coverage and defeat as many field bosses as possible.</p>
+        </article>
+      </div>
+
+      <h3 class="subhead reveal" data-i18n="act.prog">Progression monitoring</h3>
+      <p class="reveal" data-i18n="act.progp">Member progress is reviewed weekly to track individual growth and the guild's overall development. Combat power(CP) checks will be announced.</p>
+    </div>
+  </section>
+
+  <!-- 03 — REWARDS & DISTRIBUTION -->
+  <section class="section" id="rewards" aria-labelledby="rewards-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="label reveal" data-i18n="rew.label">Section 03</p>
+        <h2 class="reveal" id="rewards-title" data-i18n="rew.title">Rewards &amp; Distribution</h2>
+      </div>
+
+      <p class="kicker-lead reveal" data-i18n="rew.sub">Built on transparency, trust, and effort</p>
+      <p class="reveal" data-i18n="rew.intro">Every reward in ASTRA is earned. There is nothing hidden about how we distribute what we collect. This is how it works:</p>
+
+      <ol class="flow reveal" role="list">
+        <li><span class="node" aria-hidden="true">1</span><p data-i18n="flow.1">We defeat bosses</p></li>
+        <li><span class="node" aria-hidden="true">2</span><p data-i18n="flow.2">We get loot</p></li>
+        <li><span class="node" aria-hidden="true">3</span><p data-i18n="flow.3">We sell loot (inside or outside the guild)</p></li>
+        <li><span class="node" aria-hidden="true">4</span><p data-i18n="flow.4">We collect the funds</p></li>
+        <li><span class="node" aria-hidden="true">5</span><p data-i18n="flow.5">We distribute them back to members based on effort and participation.</p></li>
+      </ol>
+
+      <p class="pull reveal" data-i18n="rew.more">The more you show up, the more you earn. It's that simple.</p>
+      <p class="reveal" data-i18n="rew.check">Check the website for Boss attendance to understand more about this. Check #distribution for past rewards.</p>
+
+      <h3 class="subhead reveal" data-i18n="rew.h.typical">Typical Reward Distribution (Field Boss Attendance)</h3>
+      <p class="reveal" data-i18n="rew.p2">To qualify for rewards in a given period, your attendance points must reach at least 30% of the Top 1 member's total points for that period.</p>
+      <div class="panel reveal">
+        <p data-i18n="rew.ex">Example: if the Top 1 member has 100 points, you need at least 30 to qualify.</p>
+      </div>
+
+      <h3 class="subhead reveal" data-i18n="rew.h.hv">High-Value Items, Boss Item Logs, and Collections</h3>
+      <p class="reveal" data-i18n="rew.hvp">High-value items, Item/Boss Item Logs, and Collection pieces are allocated based on combat power (CP) and character need. Priority goes to the eligible member who will benefit most.</p>
+
+      <h3 class="subhead reveal" data-i18n="rew.h.new">New Members</h3>
+      <p class="reveal" data-i18n="rew.newp">For new members, Probation lasts for 1–3 weeks.</p>
+
+      <h3 class="subhead reveal" data-i18n="rew.h.auction">Guild Auction</h3>
+      <p class="reveal" data-i18n="rew.auctionp">The in-game Guild Auction is open to everyone, including members on probation.</p>
+
+      <h3 class="subhead reveal" data-i18n="rew.h.where">Where it happens on Discord</h3>
+      <div class="stack">
+        <article class="connect reveal">
+          <span class="channel">#distribution-rules</span>
+          <p data-i18n="chp.dist">More details on how some of the items are handled can be read here.</p>
+        </article>
+
+        <article class="connect reveal">
+          <span class="channel">#buy-request</span>
+          <p data-i18n="chp.buy">Request items you need from Guild Storage — especially when multiple are available. Check previous posts for the required format before submitting.</p>
+        </article>
+
+        <article class="connect reveal">
+          <span class="channel">#raffle</span>
+          <p data-i18n="chp.raffle1">Leaders post items available for raffle, such as ability books and mounts. Vote only for items you want and can afford.</p>
+          <p data-i18n="chp.raffle2">Winning gives you the opportunity to buy the item at a discounted price. Have enough diamonds ready before voting — don't blindly click.</p>
+          <p data-i18n="chp.raffle3">If you win but cannot pay, you may lose the item, and your eligibility for future raffles may be affected.</p>
+        </article>
+
+        <article class="connect reveal">
+          <div class="channel-row">
+            <span class="channel">#special-item-log</span>
+            <span class="amp" aria-hidden="true">&amp;</span>
+            <span class="channel">#special-ability-log</span>
+          </div>
+          <p data-i18n="chp.log">Post before-and-after screenshots for guild-provided items that are registered or consumed:</p>
+          <ul class="points" role="list">
+            <li data-i18n="log.1">Item collections / collection logs</li>
+            <li data-i18n="log.2">Mounts</li>
+            <li data-i18n="log.3">Passive skills</li>
+            <li data-i18n="log.4">Abilities and skill books</li>
+            <li data-i18n="log.5">Any other item that uses the same system</li>
+          </ul>
+          <p class="kicker" data-i18n="log.howto">How to log:</p>
+          <ol class="num" role="list">
+            <li data-i18n="log.s1">Before using the item, screenshot the slot showing it has not been learned/registered.</li>
+            <li data-i18n="log.s2">Use or register the item.</li>
+            <li data-i18n="log.s3">Screenshot the result showing it has been learned/registered.</li>
+            <li data-i18n="log.s4">Post both screenshots in the appropriate channel.</li>
+          </ol>
+          <div class="panel">
+            <p data-i18n="log.ex">Example: The guild sells you a skill book at a discount. Screenshot the empty skill slot, learn the skill, then screenshot the learned skill.</p>
+          </div>
+          <p class="muted gap-top" data-i18n="log.end">Check existing posts in each channel for the expected format.</p>
+        </article>
+      </div>
+
+      <div class="alert reveal" role="note" aria-labelledby="gs-title">
+        <p class="alert-kicker" data-i18n="gs.kicker">Important</p>
+        <h3 id="gs-title" data-i18n="gs.title">Guild Support Items</h3>
+        <p data-i18n="gs.p">Any item received from the guild — free, discounted, raffled, or from Guild Storage — is meant for the growth of your own character.</p>
+        <ul role="list">
+          <li data-i18n="gs.1">Do not resell guild support items without prior Leader approval.</li>
+          <li data-i18n="gs.2">If you want to replace, upgrade, or reinvest an item's value, discuss it with a Leader before selling.</li>
+          <li data-i18n="gs.3">Reselling guild support items for profit (e.g. buying at a discount and selling at market price) is a breach of trust and will affect your standing in the guild.</li>
+          <li data-i18n="gs.4">Items won through the in-game Guild Auction are yours and are not bound by all of the restrictions above — but they are still expected to be used for your character's growth, not personal profit.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 — FIELD BOSS RULES -->
+  <section class="section" id="boss" aria-labelledby="boss-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="label reveal" data-i18n="boss.label">Section 04</p>
+        <h2 class="reveal" id="boss-title" data-i18n="boss.title">Field Boss Rules</h2>
+      </div>
+      <p class="lead reveal" data-i18n="boss.intro">Field bosses run on a shared rhythm. Know the rules before you join a rally.</p>
+
+      <h3 class="subhead reveal" data-i18n="boss.h.disc">Discord &amp; Notifications</h3>
+      <ol class="num reveal" role="list">
+        <li data-i18n="boss.d1">Familiarize yourself with the guild Discord settings — especially the Boss Timer channel and bot.</li>
+        <li data-i18n="boss.d2">An automatic alarm sounds in the Voice Chat Lounge a couple of minutes before a boss spawns.</li>
+      </ol>
+
+      <h3 class="subhead reveal" data-i18n="boss.h.order">Party Leader Order</h3>
+      <p class="reveal" data-i18n="boss.orderp">Party leaders go first in this order:</p>
+      <ol class="num reveal" role="list">
+        <li data-i18n="boss.o1">Guild Leaders</li>
+        <li data-i18n="boss.o2">Officers</li>
+        <li data-i18n="boss.o3">Guild Supports</li>
+        <li data-i18n="boss.o4">Seniors</li>
+        <li data-i18n="boss.o5">Highest CP members</li>
+      </ol>
+      <p class="reveal" data-i18n="boss.ordern">Check the ASTRA website roster to see who holds each role and any recent changes.</p>
+
+      <h3 class="subhead reveal" data-i18n="boss.h.rally">Rally &amp; Timing</h3>
+      <ol class="num reveal" role="list">
+        <li data-i18n="boss.r1">Arrive at the rally point 1–2 minutes before the boss respawns.</li>
+        <li data-i18n="boss.r2">Some bosses spawn far away — factor in travel time, especially without a Teleport Stone.</li>
+        <li data-i18n="boss.r3">A rally screenshot is taken when the boss spawns. This is used for attendance verification.</li>
+        <li data-i18n="boss.r4">A loot screenshot is taken after the boss is defeated.</li>
+        <li data-i18n="boss.r5">Failing to join the rally before the boss spawns is considered late.</li>
+      </ol>
+
+      <h3 class="subhead reveal" data-i18n="boss.h.late">Late Arrivals</h3>
+      <p class="reveal" data-i18n="boss.latep">Leaders will make an effort to accommodate latecomers, such as retaking the rally screenshot, but this is not guaranteed. Late participation earns attendance points only if a retaken screenshot includes you. Repeated lateness may affect future considerations.</p>
+
+      <h3 class="subhead reveal" data-i18n="boss.h.part">Participation</h3>
+      <ol class="num reveal" role="list">
+        <li data-i18n="boss.p1">Only join the rally if you intend to participate in the battle.</li>
+      </ol>
+
+      <h3 class="subhead reveal" data-i18n="boss.h.open">Open Bosses</h3>
+      <p class="reveal" data-i18n="boss.openp">Venatus, Viorent, and Ego are open bosses. Anyone may participate without a strict rally. Stay updated through Discord announcements, as the list of open bosses may change.</p>
+
+      <h3 class="subhead reveal" data-i18n="boss.h.loot">Loot &amp; Storage</h3>
+      <ol class="num reveal" role="list">
+        <li data-i18n="boss.l1">The designated leader is responsible for looting boss drops and storing them in Guild Storage after the boss (or boss set) is defeated.</li>
+        <li data-i18n="boss.l2">All items must be stored in Guild Storage. Check #boss-rules for updated exceptions.</li>
+        <li data-i18n="boss.l3">The leader may keep items that are exempted.</li>
+      </ol>
+
+      <h3 class="subhead reveal" data-i18n="boss.h.team">Team Cooperation</h3>
+      <p class="reveal" data-i18n="boss.teamp">Sharing responsibilities — loot storage, timer management, screenshot capture — keeps field bosses running smoothly. Let the team know if you can help cover the timer or screenshots.</p>
+
+      <h3 class="subhead reveal" data-i18n="boss.h.att">Attendance &amp; Corrections</h3>
+      <p class="reveal" data-i18n="boss.attp">Rally and loot screenshots are posted in #boss-logs. This is the attendance record.</p>
+      <ol class="num reveal" role="list">
+        <li data-i18n="boss.a1">Double-check your attendance in #boss-logs after each boss.</li>
+        <li data-i18n="boss.a2">Always keep a backup screenshot as proof, especially if you were not in the party.</li>
+        <li data-i18n="boss.a3">To request a correction, post your backup screenshot in #boss-logs and tag a Leader.</li>
+        <li data-i18n="boss.a4">Attendance points are awarded based on the number of bosses attended.</li>
+      </ol>
+
+      <h3 class="subhead reveal" data-i18n="boss.h.coc">Code of Conduct</h3>
+      <p class="reveal" data-i18n="boss.cocp">We tackle bosses as a team. Following these rules is a courtesy to Management and to every other member. Help create efficient and enjoyable boss battles for everyone.</p>
+    </div>
+  </section>
+
+  <!-- 05 — FEEDBACK & INQUIRIES -->
+  <section class="section" id="feedback" aria-labelledby="feedback-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="label reveal" data-i18n="fb.label">Section 05</p>
+        <h2 class="reveal" id="feedback-title" data-i18n="fb.title">Feedback &amp; Inquiries</h2>
+      </div>
+      <p class="lead reveal" data-i18n="fb.intro">Questions, suggestions, or concerns? Post them in one of these channels. Leaders will try and directly answer them.</p>
+
+      <div class="grid">
+        <article class="connect reveal">
+          <span class="channel">#questions</span>
+          <p data-i18n="fb.qp">Ask about rules, activities, rewards, or anything that needs clarifying.</p>
+        </article>
+        <article class="connect reveal">
+          <span class="channel">#suggestions</span>
+          <p data-i18n="fb.sp">Share ideas and feedback to help improve the guild.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 — WEBSITE -->
+  <section class="section" id="website" aria-labelledby="website-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="label reveal" data-i18n="web.label">Section 06</p>
+        <h2 class="reveal" id="website-title" data-i18n="web.title">Website</h2>
+      </div>
+      <div class="step reveal">
+        <h3 data-i18n="reg.h">Register your member profile</h3>
+        <p data-i18n="reg.visit">Visit the ASTRA website for the roster, boss attendance, and member tools.</p>
+        <a class="btn-primary btn-block" href="https://momowzen.github.io/ASTRA/" target="_blank" rel="noopener noreferrer"><span data-i18n="reg.btn">Open Website</span><span class="sr-only" data-i18n="a11y.newtab">(opens in a new tab)</span></a>
+        <p class="note" data-i18n="reg.id">Use your IGN for both your username and password. Once you are logged in, edit your username.</p>
+        <p class="note" data-i18n="reg.help">Problems or questions while filling in the form? Take a screenshot and post it in #general-chat.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BONUS STEP (very bottom, subtle collapsible) -->
+  <section class="section" id="bonus" aria-labelledby="bonus-title">
+    <div class="wrap">
+      <details class="bonus reveal">
+        <summary class="bonus-toggle" id="bonus-title"><span data-i18n="bon.title">Bonus Step</span><span class="plus" aria-hidden="true"></span></summary>
+        <div class="bonus-body">
+          <p data-i18n="bon.intro">Copy this and send to #general-chat on Discord if you have read and understood the information above.</p>
+          <div class="quote">
+            <p id="bonus-msg" data-i18n="bon.msg">I have read and understood what it means to be in ASTRA. I recommend everyone to please take time to read</p>
+          </div>
+          <button type="button" class="btn-primary copy-btn" id="copy-btn" data-i18n="bon.copy">Copy message</button>
+        </div>
+      </details>
+    </div>
+  </section>
+
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  var doc = document;
+  var root = doc.documentElement;
+  var hasMatchMedia = typeof window.matchMedia === 'function';
+  var reduce = hasMatchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = hasMatchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var TAU = Math.PI * 2;
+
+  function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
+  function rand(a, b) { return a + Math.random() * (b - a); }
+
+  /* =========================================================
+     1. BACKGROUND CANVAS
+     Layers: nebula glow, dot grid, twinkling stars, embers,
+     occasional shooting star. Mouse parallax (lerped).
+     ========================================================= */
+
+  var canvas = doc.getElementById('bg-canvas');
+  var ctx = canvas && canvas.getContext ? canvas.getContext('2d') : null;
+
+  var W = 0;
+  var H = 0;
+  var DPR = 1;
+  var DOT = 80;
+  var PARALLAX = 40;
+  var time = 0;
+  var last = 0;
+  var mouse = { x: 0, y: 0 };
+  var cur = { x: 0, y: 0 };
+  var stars = [];
+  var embers = [];
+  var shot = null;
+  var nextShot = 0;
+  var sprite = null;
+
+  function makeSprite() {
+    var c = doc.createElement('canvas');
+    c.width = 64;
+    c.height = 64;
+    var g = c.getContext('2d');
+    var grad = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+    grad.addColorStop(0, 'rgba(240, 247, 255, 1)');
+    grad.addColorStop(0.2, 'rgba(150, 190, 255, 0.8)');
+    grad.addColorStop(0.55, 'rgba(76, 139, 245, 0.22)');
+    grad.addColorStop(1, 'rgba(76, 139, 245, 0)');
+    g.fillStyle = grad;
+    g.fillRect(0, 0, 64, 64);
+    return c;
+  }
+
+  function newEmber(initial) {
+    return {
+      x: Math.random(),
+      y: initial ? rand(0, H) : H + rand(4, 40),
+      vy: rand(14, 36),
+      amp: rand(8, 30),
+      fr: rand(0.25, 0.7),
+      ph: rand(0, TAU),
+      size: rand(2.5, 4),
+      a: rand(0.4, 0.9)
+    };
+  }
+
+  function setSize() {
+    if (!canvas || !ctx) return;
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = Math.round(W * DPR);
+    canvas.height = Math.round(H * DPR);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+
+  function seed() {
+    var area = W * H;
+    var n = clamp(Math.round(area / 6500), 90, 240);
+    var i;
+    stars = [];
+    for (i = 0; i < n; i++) {
+      stars.push({
+        x: Math.random(),
+        y: Math.random(),
+        r: rand(0.4, 1.4),
+        a: rand(0.35, 0.95),
+        sp: rand(1.5, 5),
+        f: rand(0.4, 1.3),
+        p: rand(0, TAU),
+        blue: Math.random() < 0.2
+      });
+    }
+    var m = clamp(Math.round(area / 42000), 16, 36);
+    embers = [];
+    for (i = 0; i < m; i++) {
+      embers.push(newEmber(true));
+    }
+    nextShot = rand(4, 9);
+  }
+
+  function drawNebula(ox, oy) {
+    var M = Math.max(W, H);
+    var blobs = [
+      { x: 0.2 + Math.sin(time * 0.045) * 0.06, y: 0.28 + Math.cos(time * 0.037) * 0.05, r: 0.55, c: '76,139,245', a: 0.16 },
+      { x: 0.84 + Math.cos(time * 0.05) * 0.05, y: 0.74 + Math.sin(time * 0.041) * 0.06, r: 0.5, c: '47,94,171', a: 0.18 },
+      { x: 0.52 + Math.sin(time * 0.03 + 1) * 0.08, y: 0.48 + Math.cos(time * 0.028) * 0.07, r: 0.42, c: '120,160,230', a: 0.06 }
+    ];
+    var i;
+    ctx.fillStyle = '#05070d';
+    ctx.fillRect(0, 0, W, H);
+    for (i = 0; i < blobs.length; i++) {
+      var b = blobs[i];
+      var cx = b.x * W + ox;
+      var cy = b.y * H + oy;
+      var R = b.r * M;
+      var g = ctx.createRadialGradient(cx, cy, 0, cx, cy, R);
+      g.addColorStop(0, 'rgba(' + b.c + ',' + b.a + ')');
+      g.addColorStop(0.45, 'rgba(' + b.c + ',' + (b.a * 0.4).toFixed(3) + ')');
+      g.addColorStop(1, 'rgba(' + b.c + ',0)');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, W, H);
+    }
+  }
+
+  function drawDots(ox, oy) {
+    var offX = ((time * 3.2 + ox) % DOT + DOT) % DOT;
+    var offY = ((time * 2.0 + oy) % DOT + DOT) % DOT;
+    var cx = W / 2;
+    var cy = H / 2;
+    var maxD = Math.max(W, H) * 0.55;
+    var x;
+    var y;
+    for (x = offX - DOT; x < W + DOT; x += DOT) {
+      for (y = offY - DOT; y < H + DOT; y += DOT) {
+        var dx = x - cx;
+        var dy = y - cy;
+        var d = Math.sqrt(dx * dx + dy * dy) / maxD;
+        if (d >= 1) continue;
+        var a = Math.pow(1 - d, 1.6) * 0.3;
+        ctx.fillStyle = 'rgba(168,198,255,' + a.toFixed(3) + ')';
+        ctx.beginPath();
+        ctx.arc(x, y, 1.1, 0, TAU);
+        ctx.fill();
+      }
+    }
+  }
+
+  function drawStars(ox, oy) {
+    var i;
+    for (i = 0; i < stars.length; i++) {
+      var s = stars[i];
+      var tw = 0.5 + 0.5 * Math.sin(time * s.f * 2 + s.p);
+      var a = s.a * (0.3 + 0.7 * tw);
+      ctx.fillStyle = s.blue
+        ? 'rgba(168,198,255,' + a.toFixed(3) + ')'
+        : 'rgba(236,243,255,' + a.toFixed(3) + ')';
+      ctx.beginPath();
+      ctx.arc(s.x * W + ox, s.y * H + oy, s.r, 0, TAU);
+      ctx.fill();
+    }
+  }
+
+  function drawEmbers(ox, oy) {
+    var i;
+    ctx.globalCompositeOperation = 'lighter';
+    for (i = 0; i < embers.length; i++) {
+      var e = embers[i];
+      var px = e.x * W + Math.sin(time * e.fr + e.ph) * e.amp + ox;
+      var py = e.y + oy;
+      var fade = clamp((H - e.y) / (H * 0.2), 0, 1) * clamp(e.y / (H * 0.35), 0, 1);
+      var flick = 0.75 + 0.25 * Math.sin(time * 2.3 + e.ph);
+      var s = e.size * 2.4;
+      ctx.globalAlpha = clamp(e.a * fade * flick, 0, 1);
+      ctx.drawImage(sprite, px - s / 2, py - s / 2, s, s);
+    }
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = 'source-over';
+  }
+
+  function maybeShot(dt) {
+    if (!shot) {
+      if (time >= nextShot) {
+        var ang = rand(0.34, 0.6);
+        var speed = rand(700, 980);
+        var D = rand(900, 1100);
+        shot = {
+          x: rand(0.08, 0.8) * W,
+          y: rand(0.02, 0.3) * H,
+          vx: Math.cos(ang),
+          vy: Math.sin(ang),
+          L: rand(150, 230),
+          sp: speed,
+          D: D,
+          dur: D / speed,
+          t: 0
+        };
+      }
+      return;
+    }
+    shot.t += dt;
+    if (shot.t > shot.dur + 0.5) {
+      shot = null;
+      nextShot = time + rand(7, 16);
+    }
+  }
+
+  function drawShot(ox, oy) {
+    if (!shot) return;
+    var s = shot;
+    var dist = s.sp * Math.min(s.t, s.dur);
+    var alpha = s.t < s.dur ? 1 : clamp(1 - (s.t - s.dur) / 0.5, 0, 1);
+    var hx = s.x + s.vx * dist + ox;
+    var hy = s.y + s.vy * dist + oy;
+    var tailLen = Math.min(dist, s.L);
+    var tx = hx - s.vx * tailLen;
+    var ty = hy - s.vy * tailLen;
+    var g = ctx.createLinearGradient(hx, hy, tx, ty);
+    g.addColorStop(0, 'rgba(240,247,255,' + (0.95 * alpha).toFixed(3) + ')');
+    g.addColorStop(0.35, 'rgba(168,198,255,' + (0.45 * alpha).toFixed(3) + ')');
+    g.addColorStop(1, 'rgba(76,139,245,0)');
+    ctx.strokeStyle = g;
+    ctx.lineWidth = 1.4;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(hx, hy);
+    ctx.lineTo(tx, ty);
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(245,250,255,' + (0.9 * alpha).toFixed(3) + ')';
+    ctx.beginPath();
+    ctx.arc(hx, hy, 1.4, 0, TAU);
+    ctx.fill();
+  }
+
+  function update(dt) {
+    var i;
+    for (i = 0; i < stars.length; i++) {
+      var s = stars[i];
+      s.y -= (s.sp * dt) / H;
+      if (s.y < 0) s.y += 1;
+    }
+    for (i = 0; i < embers.length; i++) {
+      var e = embers[i];
+      e.y -= e.vy * dt;
+      if (e.y < -12) {
+        embers[i] = newEmber(false);
+      }
+    }
+    maybeShot(dt);
+  }
+
+  function render() {
+    if (!ctx) return;
+    var px = cur.x * PARALLAX;
+    var py = cur.y * PARALLAX;
+    drawNebula(px * 0.5, py * 0.5);
+    drawDots(px * 0.25, py * 0.25);
+    drawStars(px * 0.5, py * 0.5);
+    drawEmbers(px * 0.9, py * 0.9);
+    drawShot(px * 0.6, py * 0.6);
+  }
+
+  function frame(now) {
+    var dt = Math.min(0.05, Math.max(0, (now - last) / 1000));
+    last = now;
+    time += dt;
+    var k = 1 - Math.pow(0.92, dt * 60);
+    cur.x += (mouse.x - cur.x) * k;
+    cur.y += (mouse.y - cur.y) * k;
+    update(dt);
+    render();
+    window.requestAnimationFrame(frame);
+  }
+
+  function initCanvas() {
+    if (!canvas || !ctx) return;
+    sprite = makeSprite();
+    setSize();
+    seed();
+
+    if (reduce) {
+      time = 12;
+      cur.x = 0;
+      cur.y = 0;
+      render();
+    } else {
+      last = window.performance ? window.performance.now() : Date.now();
+      window.requestAnimationFrame(frame);
+      window.addEventListener('pointermove', function (e) {
+        mouse.x = e.clientX / Math.max(W, 1) - 0.5;
+        mouse.y = e.clientY / Math.max(H, 1) - 0.5;
+      }, { passive: true });
+    }
+
+    window.addEventListener('resize', function () {
+      setSize();
+      if (reduce) render();
+    });
+  }
+
+  initCanvas();
+
+  /* =========================================================
+     2. SCROLL REVEAL (IntersectionObserver + sibling stagger)
+     ========================================================= */
+
+  var reveals = Array.prototype.slice.call(doc.querySelectorAll('.reveal'));
+
+  reveals.forEach(function (el) {
+    var parent = el.parentElement;
+    var idx = parent ? Array.prototype.indexOf.call(parent.children, el) : 0;
+    el.style.setProperty('--d', Math.min(Math.max(idx, 0), 5) * 60 + 'ms');
+  });
+
+  function showEl(el) {
+    el.classList.add('in');
+  }
+
+  if (reduce || !('IntersectionObserver' in window)) {
+    reveals.forEach(showEl);
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          showEl(entry.target);
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
+
+    reveals.forEach(function (el) {
+      io.observe(el);
+    });
+  }
+
+  /* =========================================================
+     3. CARD TILT & POINTER SHEEN
+     Mouse only; disabled on touch and reduced motion.
+     ========================================================= */
+
+  if (!reduce && finePointer) {
+    var tiltEls = Array.prototype.slice.call(doc.querySelectorAll('.card, .step, .connect'));
+
+    tiltEls.forEach(function (el) {
+      el.addEventListener('pointermove', function (e) {
+        if (e.pointerType && e.pointerType !== 'mouse') return;
+        var r = el.getBoundingClientRect();
+        if (!r.width || !r.height) return;
+        var px = clamp((e.clientX - r.left) / r.width, 0, 1);
+        var py = clamp((e.clientY - r.top) / r.height, 0, 1);
+        el.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
+        el.style.setProperty('--my', (py * 100).toFixed(1) + '%');
+        el.style.setProperty('--rx', ((0.5 - py) * 10).toFixed(2) + 'deg');
+        el.style.setProperty('--ry', ((px - 0.5) * 14).toFixed(2) + 'deg');
+      });
+
+      el.addEventListener('pointerleave', function () {
+        el.style.setProperty('--rx', '0deg');
+        el.style.setProperty('--ry', '0deg');
+      });
+    });
+  }
+
+  /* =========================================================
+     4. READING PROGRESS BAR
+     ========================================================= */
+
+  var progress = doc.getElementById('progress');
+  var progressTicking = false;
+
+  function updateProgress() {
+    progressTicking = false;
+    if (!progress) return;
+    var max = doc.documentElement.scrollHeight - window.innerHeight;
+    var ratio = max > 0 ? clamp(window.scrollY / max, 0, 1) : 0;
+    progress.style.transform = 'scaleX(' + ratio.toFixed(4) + ')';
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!progressTicking) {
+      progressTicking = true;
+      window.requestAnimationFrame(updateProgress);
+    }
+  }, { passive: true });
+
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+
+  /* =========================================================
+     5. LANGUAGE SWITCHER (EN / KO / JP)
+     Every data-i18n key is in `en`. Missing keys in `ko` or
+     `jp` fall back to English automatically.
+     ========================================================= */
+
+  var I18N = {
+    en: {
+      'meta.title': "ASTRA — Member Information",
+      'a11y.newtab': "(opens in a new tab)",
+      'lang.label': "Language",
+      'toc.label': "Handbook sections",
+
+      'chip.brand': "ASTRA Members",
+
+      'toc.welcome': "Welcome",
+      'toc.who': "Who We Are",
+      'toc.what': "What We Do",
+      'toc.rewards': "Rewards & Distribution",
+      'toc.boss': "Field Boss Rules",
+      'toc.feedback': "Feedback & Inquiries",
+      'toc.website': "Website",
+
+      'w.label': "Welcome to",
+      'w.title': "ASTRA",
+      'w.tagline': "Together, we rise.",
+      'w.value': "We value fairness, respect, unity, and transparency.",
+      'w.grow': "We grow stronger together — through shared events, clear rules, regular communication, and honest effort.",
+
+      'who.label': "Section 01",
+      'who.title': "Who We Are",
+      'who.mission': "Our mission is to help each other become stronger through fairness, respect, and unity — while enjoying the game together.",
+      'who.welcome': "We welcome players of all skill levels who share our values and are willing to contribute to the team.",
+
+      'fair.t': "Fairness",
+      'fair.sum': "Rewards and opportunities are earned through effort, participation, and progression needs. The same rules apply to every member.",
+      'fair.1l': "Be honest.",
+      'fair.1b': "No stealing, lying, or false excuses to obtain items.",
+      'fair.2l': "Use guild support responsibly.",
+      'fair.2b': "Guild items are meant to strengthen your character. See Rewards & Distribution for details.",
+
+      'res.t': "Respect",
+      'res.sum': "Treat others with courtesy, both inside the guild and in the wider community.",
+      'res.1l': "Communicate respectfully.",
+      'res.1b': "Feedback and disagreements are welcome when handled calmly.",
+      'res.2l': "No toxicity.",
+      'res.2b': "Disrespect, harassment, and aggression toward members will not be tolerated.",
+      'res.3l': "Represent the guild well.",
+      'res.3b': "No arguing, baiting, or drama in world chat — even when provoked.",
+      'res.4l': "Keep guild matters private.",
+      'res.4b': "Bring disputes to a Leader.",
+
+      'uni.t': "Unity",
+      'uni.sum': "We rise together — one guild, one team.",
+      'uni.p': "Contribute where you can, cooperate during activities, and help fellow members grow.",
+
+      'acc.t': "Accountability",
+      'acc.sum': "Honor your commitments and own your actions. Mistakes are part of learning; repeatedly ignoring the rules is not.",
+      'acc.1l': "Stay active on Discord",
+      'acc.1b': "— announcements go there first.",
+      'acc.2l': "Communicate your availability",
+      'acc.2b': "— tell Leaders early about absences.",
+      'acc.3l': "Keep Leaders informed",
+      'acc.3b': "— IGN changes, character sales, status changes.",
+      'acc.4l': "Use your profile notes",
+      'acc.4b': "— share updates with the guild (but still notify Leaders directly for important changes).",
+
+      'fun.t': "Fun",
+      'fun.sum': "This is a game.",
+      'fun.p': "Enjoy it, make memories, and have fun — without taking that enjoyment away from others.",
+
+      'act.label': "Section 02",
+      'act.title': "What We Do",
+      'disc.h': "Stay Active on Discord",
+      'disc.p1': "Discord is the heart of our coordination. All activities below are subject to change based on the Server or World situation. Schedules, group assignments, rally calls, and live updates are posted there first.",
+      'disc.p2': "Check Discord often — before, during, and after events.",
+      'disc.p3': "Missing an announcement means missing out.",
+      'act.daily': "Daily Operations",
+      'act.fb': "Field Boss Raids",
+      'act.fbp': "Participation is encouraged. Members earn attendance points through verified participation.",
+      'act.vc': "Voice Chat Hangouts",
+      'act.vcp': "- Get to know each other and fast relay of information",
+      'act.weekly': "Weekly Raids & Events",
+      'act.gvg': "Guild vs. Guild (GvG)",
+      'act.gvgp': "Scheduled for Friday and Saturday. Attendance is expected from available members.",
+      'act.yama': "Yama Hard (125k CP)",
+      'act.yamap': "Organized raid parties run on Saturday and Sunday — around four runs across the two days, afternoon and evening.",
+      'act.gb': "Guild Boss",
+      'act.gbp': "Held on Sunday, typically after Rakajeth / Tumier.",
+      'act.world': "World & Continent Battles",
+      'act.kr': "Alliance War & Raids — Kransia",
+      'act.krp': "Major continent battles. Strategies and assignments are shared through Discord.",
+      'act.svs': "Server vs. Server — Corrosion Rift",
+      'act.svsp': "The battle for Bahel. Keep 1–2 hours of dungeon time available so you are not locked out when the announcement to start comes.",
+      'act.maint': "Maintenance Boss Spawns",
+      'act.maintp': "After every maintenance, groups are assigned to maximize coverage and defeat as many field bosses as possible.",
+      'act.prog': "Progression monitoring",
+      'act.progp': "Member progress is reviewed weekly to track individual growth and the guild's overall development. Combat power(CP) checks will be announced.",
+
+      'rew.label': "Section 03",
+      'rew.title': "Rewards & Distribution",
+      'rew.sub': "Built on transparency, trust, and effort",
+      'rew.intro': "Every reward in ASTRA is earned. There is nothing hidden about how we distribute what we collect. This is how it works:",
+      'flow.1': "We defeat bosses",
+      'flow.2': "We get loot",
+      'flow.3': "We sell loot (inside or outside the guild)",
+      'flow.4': "We collect the funds",
+      'flow.5': "We distribute them back to members based on effort and participation.",
+      'rew.more': "The more you show up, the more you earn. It's that simple.",
+      'rew.check': "Check the website for Boss attendance to understand more about this. Check #distribution for past rewards.",
+      'rew.h.typical': "Typical Reward Distribution (Field Boss Attendance)",
+      'rew.p2': "To qualify for rewards in a given period, your attendance points must reach at least 30% of the Top 1 member's total points for that period.",
+      'rew.ex': "Example: if the Top 1 member has 100 points, you need at least 30 to qualify.",
+      'rew.h.hv': "High-Value Items, Boss Item Logs, and Collections",
+      'rew.hvp': "High-value items, Item/Boss Item Logs, and Collection pieces are allocated based on combat power (CP) and character need. Priority goes to the eligible member who will benefit most.",
+      'rew.h.new': "New Members",
+      'rew.newp': "For new members, Probation lasts for 1–3 weeks.",
+      'rew.h.auction': "Guild Auction",
+      'rew.auctionp': "The in-game Guild Auction is open to everyone, including members on probation.",
+      'rew.h.where': "Where it happens on Discord",
+      'chp.dist': "More details on how some of the items are handled can be read here.",
+      'chp.buy': "Request items you need from Guild Storage — especially when multiple are available. Check previous posts for the required format before submitting.",
+      'chp.raffle1': "Leaders post items available for raffle, such as ability books and mounts. Vote only for items you want and can afford.",
+      'chp.raffle2': "Winning gives you the opportunity to buy the item at a discounted price. Have enough diamonds ready before voting — don't blindly click.",
+      'chp.raffle3': "If you win but cannot pay, you may lose the item, and your eligibility for future raffles may be affected.",
+      'chp.log': "Post before-and-after screenshots for guild-provided items that are registered or consumed:",
+      'log.1': "Item collections / collection logs",
+      'log.2': "Mounts",
+      'log.3': "Passive skills",
+      'log.4': "Abilities and skill books",
+      'log.5': "Any other item that uses the same system",
+      'log.howto': "How to log:",
+      'log.s1': "Before using the item, screenshot the slot showing it has not been learned/registered.",
+      'log.s2': "Use or register the item.",
+      'log.s3': "Screenshot the result showing it has been learned/registered.",
+      'log.s4': "Post both screenshots in the appropriate channel.",
+      'log.ex': "Example: The guild sells you a skill book at a discount. Screenshot the empty skill slot, learn the skill, then screenshot the learned skill.",
+      'log.end': "Check existing posts in each channel for the expected format.",
+      'gs.kicker': "Important",
+      'gs.title': "Guild Support Items",
+      'gs.p': "Any item received from the guild — free, discounted, raffled, or from Guild Storage — is meant for the growth of your own character.",
+      'gs.1': "Do not resell guild support items without prior Leader approval.",
+      'gs.2': "If you want to replace, upgrade, or reinvest an item's value, discuss it with a Leader before selling.",
+      'gs.3': "Reselling guild support items for profit (e.g. buying at a discount and selling at market price) is a breach of trust and will affect your standing in the guild.",
+      'gs.4': "Items won through the in-game Guild Auction are yours and are not bound by all of the restrictions above — but they are still expected to be used for your character's growth, not personal profit.",
+
+      'boss.label': "Section 04",
+      'boss.title': "Field Boss Rules",
+      'boss.intro': "Field bosses run on a shared rhythm. Know the rules before you join a rally.",
+      'boss.h.disc': "Discord & Notifications",
+      'boss.d1': "Familiarize yourself with the guild Discord settings — especially the Boss Timer channel and bot.",
+      'boss.d2': "An automatic alarm sounds in the Voice Chat Lounge a couple of minutes before a boss spawns.",
+      'boss.h.order': "Party Leader Order",
+      'boss.orderp': "Party leaders go first in this order:",
+      'boss.o1': "Guild Leaders",
+      'boss.o2': "Officers",
+      'boss.o3': "Guild Supports",
+      'boss.o4': "Seniors",
+      'boss.o5': "Highest CP members",
+      'boss.ordern': "Check the ASTRA website roster to see who holds each role and any recent changes.",
+      'boss.h.rally': "Rally & Timing",
+      'boss.r1': "Arrive at the rally point 1–2 minutes before the boss respawns.",
+      'boss.r2': "Some bosses spawn far away — factor in travel time, especially without a Teleport Stone.",
+      'boss.r3': "A rally screenshot is taken when the boss spawns. This is used for attendance verification.",
+      'boss.r4': "A loot screenshot is taken after the boss is defeated.",
+      'boss.r5': "Failing to join the rally before the boss spawns is considered late.",
+      'boss.h.late': "Late Arrivals",
+      'boss.latep': "Leaders will make an effort to accommodate latecomers, such as retaking the rally screenshot, but this is not guaranteed. Late participation earns attendance points only if a retaken screenshot includes you. Repeated lateness may affect future considerations.",
+      'boss.h.part': "Participation",
+      'boss.p1': "Only join the rally if you intend to participate in the battle.",
+      'boss.h.open': "Open Bosses",
+      'boss.openp': "Venatus, Viorent, and Ego are open bosses. Anyone may participate without a strict rally. Stay updated through Discord announcements, as the list of open bosses may change.",
+      'boss.h.loot': "Loot & Storage",
+      'boss.l1': "The designated leader is responsible for looting boss drops and storing them in Guild Storage after the boss (or boss set) is defeated.",
+      'boss.l2': "All items must be stored in Guild Storage. Check #boss-rules for updated exceptions.",
+      'boss.l3': "The leader may keep items that are exempted.",
+      'boss.h.team': "Team Cooperation",
+      'boss.teamp': "Sharing responsibilities — loot storage, timer management, screenshot capture — keeps field bosses running smoothly. Let the team know if you can help cover the timer or screenshots.",
+      'boss.h.att': "Attendance & Corrections",
+      'boss.attp': "Rally and loot screenshots are posted in #boss-logs. This is the attendance record.",
+      'boss.a1': "Double-check your attendance in #boss-logs after each boss.",
+      'boss.a2': "Always keep a backup screenshot as proof, especially if you were not in the party.",
+      'boss.a3': "To request a correction, post your backup screenshot in #boss-logs and tag a Leader.",
+      'boss.a4': "Attendance points are awarded based on the number of bosses attended.",
+      'boss.h.coc': "Code of Conduct",
+      'boss.cocp': "We tackle bosses as a team. Following these rules is a courtesy to Management and to every other member. Help create efficient and enjoyable boss battles for everyone.",
+
+      'fb.label': "Section 05",
+      'fb.title': "Feedback & Inquiries",
+      'fb.intro': "Questions, suggestions, or concerns? Post them in one of these channels. Leaders will try and directly answer them.",
+      'fb.qp': "Ask about rules, activities, rewards, or anything that needs clarifying.",
+      'fb.sp': "Share ideas and feedback to help improve the guild.",
+
+      'web.label': "Section 06",
+      'web.title': "Website",
+      'reg.h': "Register your member profile",
+      'reg.visit': "Visit the ASTRA website for the roster, boss attendance, and member tools.",
+      'reg.btn': "Open Website",
+      'reg.id': "Use your IGN for both your username and password. Once you are logged in, edit your username.",
+      'reg.help': "Problems or questions while filling in the form? Take a screenshot and post it in #general-chat.",
+
+      'bon.title': "Bonus Step",
+      'bon.intro': "Copy this and send to #general-chat on Discord if you have read and understood the information above.",
+      'bon.msg': "I have read and understood what it means to be in ASTRA. I recommend everyone to please take time to read",
+      'bon.copy': "Copy message",
+      'bon.copied': "Copied",
+      'bon.failed': "Copy failed"
+    },
+
+    ko: {
+      'meta.title': "ASTRA — 멤버 안내",
+      'a11y.newtab': "(새 탭에서 열림)",
+      'lang.label': "언어",
+      'toc.label': "핸드북 섹션",
+
+      'chip.brand': "ASTRA 멤버",
+
+      'toc.welcome': "환영합니다",
+      'toc.who': "우리는 누구인가",
+      'toc.what': "우리가 하는 일",
+      'toc.rewards': "보상 및 분배",
+      'toc.boss': "필드 보스 규칙",
+      'toc.feedback': "피드백 및 문의",
+      'toc.website': "웹사이트",
+
+      'w.label': "ASTRA에 오신 것을 환영합니다",
+      'w.title': "ASTRA",
+      'w.tagline': "함께, 우리는 일어섭니다.",
+      'w.value': "우리는 공정함, 존중, 단결, 투명성을 소중히 여깁니다.",
+      'w.grow': "우리는 함께 공동 이벤트, 명확한 규칙, 꾸준한 소통, 정직한 노력을 통해 더 강해집니다.",
+
+      'who.label': "섹션 01",
+      'who.title': "우리는 누구인가",
+      'who.mission': "우리의 사명은 공정함, 존중, 단결을 통해 서로가 더 강해지도록 돕고, 함께 게임을 즐기는 것입니다.",
+      'who.welcome': "우리의 가치에 공감하고 팀에 기여할 의지가 있는 모든 실력 수준의 플레이어를 환영합니다.",
+
+      'fair.t': "공정함",
+      'fair.sum': "보상과 기회는 노력, 참여, 성장에 필요한 요소를 통해 얻어집니다. 같은 규칙이 모든 멤버에게 적용됩니다.",
+      'fair.1l': "정직하세요.",
+      'fair.1b': "아이템을 얻기 위해 훔치거나, 거짓말을 하거나, 거짓 핑계를 대는 행위는 없어야 합니다.",
+      'fair.2l': "길드 지원을 책임감 있게 사용하세요.",
+      'fair.2b': "길드 아이템은 여러분의 캐릭터를 강화하기 위한 것입니다. 자세한 내용은 '보상 및 분배'를 참고하세요.",
+
+      'res.t': "존중",
+      'res.sum': "길드 안에서든 더 넓은 커뮤니티에서든, 다른 사람을 예의로 대하세요.",
+      'res.1l': "존중하며 소통하세요.",
+      'res.1b': "피드백과 의견 차이는 차분하게 다룬다면 환영합니다.",
+      'res.2l': "독설은 금물입니다.",
+      'res.2b': "멤버에 대한 무례함, 괴롭힘, 공격성은 용납되지 않습니다.",
+      'res.3l': "길드를 잘 대표하세요.",
+      'res.3b': "월드 채팅에서 말다툼, 도발, 분쟁 유발은 금물입니다. 도발을 받더라도 마찬가지입니다.",
+      'res.4l': "길드 내부 문제는 비공개로 하세요.",
+      'res.4b': "분쟁은 리더에게 가져가세요.",
+
+      'uni.t': "단결",
+      'uni.sum': "함께 일어섭니다 — 하나의 길드, 하나의 팀.",
+      'uni.p': "할 수 있는 곳에서 기여하고, 활동에 협력하며, 함께하는 멤버들이 성장하도록 도와주세요.",
+
+      'acc.t': "책임감",
+      'acc.sum': "약속을 지키고 자신의 행동에 책임을 지세요. 실수는 배움의 일부이지만, 규칙을 반복해서 무시하는 것은 그렇지 않습니다.",
+      'acc.1l': "디스코드에서 꾸준히 활동하세요",
+      'acc.1b': "— 공지는 디스코드에 가장 먼저 올라옵니다.",
+      'acc.2l': "참여 가능 여부를 알려 주세요",
+      'acc.2b': "— 결석 소식은 리더에게 미리 알려 주세요.",
+      'acc.3l': "리더에게 계속 알려 주세요",
+      'acc.3b': "— IGN 변경, 캐릭터 판매, 상태 변화 등.",
+      'acc.4l': "프로필 메모를 활용하세요",
+      'acc.4b': "— 길드원과 업데이트를 공유하세요(중요한 변경은 여전히 리더에게 직접 알려야 합니다).",
+
+      'fun.t': "즐거움",
+      'fun.sum': "이것은 게임입니다.",
+      'fun.p': "즐기고, 추억을 만들고, 재미있게 보내세요. 다른 사람의 즐거움을 빼앗지 않으면서요.",
+
+      'act.label': "섹션 02",
+      'act.title': "우리가 하는 일",
+      'disc.h': "디스코드에서 꾸준히 활동하세요",
+      'disc.p1': "디스코드는 우리의 소통 중심입니다. 아래의 모든 활동은 서버 또는 월드 상황에 따라 바뀔 수 있습니다. 일정, 조 편성, 집결 호출, 실시간 업데이트는 가장 먼저 디스코드에 게시됩니다.",
+      'disc.p2': "이벤트 전, 중, 후에 자주 디스코드를 확인하세요.",
+      'disc.p3': "공지를 놓치면 기회도 놓치게 됩니다.",
+      'act.daily': "일상 운영",
+      'act.fb': "필드 보스 레이드",
+      'act.fbp': "참여를 권장합니다. 검증된 참여를 통해 출석 포인트를 얻습니다.",
+      'act.vc': "음성 채팅 모임",
+      'act.vcp': "- 서로를 알아가고 정보를 빠르게 전달하는 자리입니다",
+      'act.weekly': "주간 레이드 및 이벤트",
+      'act.gvg': "길드 대 길드 (GvG)",
+      'act.gvgp': "금요일과 토요일에 진행됩니다. 참여 가능한 멤버의 출석을 기대합니다.",
+      'act.yama': "야마 하드 (125k CP)",
+      'act.yamap': "조직된 레이드 파티가 토요일과 일요일에 진행됩니다. 두 날에 걸쳐 오후와 저녁, 약 4회 진행됩니다.",
+      'act.gb': "길드 보스",
+      'act.gbp': "일요일에 진행되며, 보통 Rakajeth / Tumier 이후에 열립니다.",
+      'act.world': "월드 및 대륙 전투",
+      'act.kr': "연합 전쟁 및 레이드 — 크란시아",
+      'act.krp': "대규모 대륙 전투입니다. 전략과 배정은 디스코드를 통해 공유됩니다.",
+      'act.svs': "서버 대항 — 부식의 균열",
+      'act.svsp': "바헬을 차지하기 위한 전투입니다. 시작 공지가 나올 때 잠기지 않도록 1~2시간의 던전 시간을 비워 두세요.",
+      'act.maint': "점검 후 필드 보스 출현",
+      'act.maintp': "매번 점검 후 그룹이 배정되어 최대한 넓게 커버하고 가능한 많은 필드 보스를 처치합니다.",
+      'act.prog': "성장 모니터링",
+      'act.progp': "멤버의 성장은 매주 검토하여 개인의 성장과 길드 전체의 발전을 추적합니다. 전투력(CP) 확인은 공지를 통해 안내됩니다.",
+
+      'rew.label': "섹션 03",
+      'rew.title': "보상 및 분배",
+      'rew.sub': "투명성, 신뢰, 노력을 바탕으로",
+      'rew.intro': "ASTRA의 모든 보상은 노력으로 얻어집니다. 우리가 모은 것을 어떻게 분배하는지 숨기는 것은 없습니다. 진행 방식은 다음과 같습니다:",
+      'flow.1': "보스를 처치합니다",
+      'flow.2': "전리품을 얻습니다",
+      'flow.3': "전리품을 판매합니다 (길드 내부 또는 외부)",
+      'flow.4': "자금을 모읍니다",
+      'flow.5': "노력과 참여를 기준으로 자금을 멤버에게 다시 분배합니다.",
+      'rew.more': "많이 참여할수록 많이 얻습니다. 간단합니다.",
+      'rew.check': "필드 보스 출석에 대한 자세한 내용은 웹사이트에서 확인하세요. 과거 보상은 #distribution에서 확인하세요.",
+      'rew.h.typical': "일반적인 보상 분배 (필드 보스 출석 기준)",
+      'rew.p2': "특정 기간의 보상을 받으려면, 출석 포인트가 해당 기간 1위 멤버의 총 포인트의 최소 30% 이상이어야 합니다.",
+      'rew.ex': "예: 1위 멤버가 100포인트라면, 자격을 얻으려면 최소 30포인트가 필요합니다.",
+      'rew.h.hv': "고가 아이템, 보스 아이템 기록 및 컬렉션",
+      'rew.hvp': "고가 아이템, 아이템/보스 아이템 기록, 컬렉션 조각은 전투력(CP)과 캐릭터의 필요도를 기준으로 배분됩니다. 자격을 갖춘 멤버 중 가장 큰 도움을 받을 수 있는 멤버에게 우선권이 주어집니다.",
+      'rew.h.new': "신규 멤버",
+      'rew.newp': "신규 멤버의 수습 기간은 1~3주입니다.",
+      'rew.h.auction': "길드 경매",
+      'rew.auctionp': "인게임 길드 경매는 수습 기간 중인 멤버를 포함해 모두에게 열려 있습니다.",
+      'rew.h.where': "디스코드에서 이루어지는 곳",
+      'chp.dist': "일부 아이템을 어떻게 다루는지에 대한 자세한 내용은 여기에서 읽을 수 있습니다.",
+      'chp.buy': "길드 창고에서 필요한 아이템을 요청하세요. 특히 여러 개가 있을 때 유용합니다. 제출하기 전에 필요한 형식을 이전 게시글에서 확인하세요.",
+      'chp.raffle1': "리더가 능력서, 마운트 등 래플 대상 아이템을 게시합니다. 원하고 구매할 수 있는 아이템에만 투표하세요.",
+      'chp.raffle2': "당첨되면 할인된 가격에 아이템을 구매할 기회가 생깁니다. 투표하기 전에 다이아를 충분히 준비해 두세요. 무심코 클릭하지 마세요.",
+      'chp.raffle3': "당첨되고도 결제할 수 없다면 아이템을 잃을 수 있고, 이후 래플 참여 자격에도 영향이 갈 수 있습니다.",
+      'chp.log': "등록되거나 소모되는 길드 제공 아이템에 대해 사용 전후의 스크린샷을 게시하세요:",
+      'log.1': "아이템 컬렉션 / 컬렉션 기록",
+      'log.2': "마운트",
+      'log.3': "패시브 스킬",
+      'log.4': "능력 및 스킬서",
+      'log.5': "같은 시스템을 사용하는 그 밖의 모든 아이템",
+      'log.howto': "기록 방법:",
+      'log.s1': "아이템을 사용하기 전에, 아직 배우지 않았거나 등록되지 않았음을 보여 주는 슬롯을 스크린샷으로 찍으세요.",
+      'log.s2': "아이템을 사용하거나 등록하세요.",
+      'log.s3': "배우거나 등록된 결과를 보여 주는 스크린샷을 찍으세요.",
+      'log.s4': "두 스크린샷을 적절한 채널에 게시하세요.",
+      'log.ex': "예: 길드가 스킬서를 할인가에 판매했습니다. 빈 스킬 슬롯을 스크린샷으로 찍고, 스킬을 배운 뒤, 배운 스킬을 다시 스크린샷으로 찍으세요.",
+      'log.end': "예상되는 형식은 각 채널의 기존 게시글에서 확인하세요.",
+      'gs.kicker': "중요",
+      'gs.title': "길드 지원 아이템",
+      'gs.p': "길드에서 받은 모든 아이템(무료, 할인, 래플, 길드 창고 출처 포함)은 여러분의 캐릭터를 성장시키기 위한 것입니다.",
+      'gs.1': "리더의 사전 승인 없이 길드 지원 아이템을 재판매하지 마세요.",
+      'gs.2': "아이템을 교체, 업그레이드하거나 그 가치를 재투자하려면, 판매 전에 리더와 상의하세요.",
+      'gs.3': "수익을 얻기 위해 길드 지원 아이템을 재판매하는 것(예: 할인가에 사서 시장가에 파는 것)은 신뢰를 저버리는 행위이며, 길드에서의 입지에 영향을 줍니다.",
+      'gs.4': "인게임 길드 경매로 얻은 아이템은 여러분의 것이며 위의 제한 대부분에 묶이지 않습니다. 다만 개인적 이익이 아니라 캐릭터의 성장을 위해 사용하는 것이 기대됩니다.",
+
+      'boss.label': "섹션 04",
+      'boss.title': "필드 보스 규칙",
+      'boss.intro': "필드 보스는 공통의 리듬에 따라 진행됩니다. 집결에 참여하기 전에 규칙을 알아 두세요.",
+      'boss.h.disc': "디스코드 및 알림",
+      'boss.d1': "길드 디스코드 설정, 특히 보스 타이머 채널과 봇에 익숙해지세요.",
+      'boss.d2': "보스가 출현하기 몇 분 전, 음성 채팅 라운지에서 자동 알람이 울립니다.",
+      'boss.h.order': "파티장 우선순위",
+      'boss.orderp': "파티장은 다음 순서로 우선합니다:",
+      'boss.o1': "길드 리더",
+      'boss.o2': "간부",
+      'boss.o3': "길드 서포트",
+      'boss.o4': "시니어",
+      'boss.o5': "전투력이 가장 높은 멤버",
+      'boss.ordern': "ASTRA 웹사이트 명단에서 각 역할을 맡은 멤버와 최근 변경 사항을 확인하세요.",
+      'boss.h.rally': "집결 및 타이밍",
+      'boss.r1': "보스가 리스폰되기 1~2분 전에 집결 지점에 도착하세요.",
+      'boss.r2': "일부 보스는 멀리에서 출현합니다. 특히 순간이동석이 없다면 이동 시간을 고려하세요.",
+      'boss.r3': "보스가 출현하는 순간 집결 스크린샷을 찍습니다. 이는 출석 확인에 사용됩니다.",
+      'boss.r4': "보스를 처치한 후 전리품 스크린샷을 찍습니다.",
+      'boss.r5': "보스가 출현하기 전에 집결에 참여하지 못하면 지각으로 간주합니다.",
+      'boss.h.late': "지각 처리",
+      'boss.latep': "리더는 늦게 도착한 멤버를 배려하도록 노력합니다. 예를 들어 집결 스크린샷을 다시 찍을 수 있게 해 주지만, 이것이 보장되지는 않습니다. 늦은 참여는 다시 찍은 스크린샷에 여러분이 포함된 경우에만 출석 포인트가 주어집니다. 반복적으로 지각하면 향후 고려 사항에 영향을 줄 수 있습니다.",
+      'boss.h.part': "참여",
+      'boss.p1': "전투에 참여할 생각이 있을 때만 집결에 들어오세요.",
+      'boss.h.open': "오픈 보스",
+      'boss.openp': "베나투스, 비오렌트, 에고는 오픈 보스입니다. 엄격한 집결 없이 누구나 참여할 수 있습니다. 오픈 보스 목록은 바뀔 수 있으니 디스코드 공지를 통해 최신 정보를 확인하세요.",
+      'boss.h.loot': "전리품 및 보관",
+      'boss.l1': "지정된 리더는 보스(또는 보스 세트)를 처치한 뒤 드롭 아이템을 획득하고 길드 창고에 보관할 책임이 있습니다.",
+      'boss.l2': "모든 아이템은 길드 창고에 보관해야 합니다. 최신 예외 사항은 #boss-rules에서 확인하세요.",
+      'boss.l3': "리더는 예외로 인정된 아이템을 보관할 수 있습니다.",
+      'boss.h.team': "팀 협력",
+      'boss.teamp': "역할을 나누는 것(전리품 보관, 타이머 관리, 스크린샷 촬영)이 필드 보스를 원활하게 진행하는 데 도움이 됩니다. 타이머나 스크린샷을 도울 수 있다면 팀에 알려 주세요.",
+      'boss.h.att': "출석 및 정정",
+      'boss.attp': "집결 및 전리품 스크린샷은 #boss-logs에 게시됩니다. 이것이 출석 기록입니다.",
+      'boss.a1': "보스마다 끝난 후 #boss-logs에서 본인의 출석을 다시 확인하세요.",
+      'boss.a2': "특히 파티에 들어가 있지 않았다면, 증빙용 백업 스크린샷을 항상 보관하세요.",
+      'boss.a3': "정정을 요청하려면 백업 스크린샷을 #boss-logs에 올리고 리더를 태그하세요.",
+      'boss.a4': "출석 포인트는 참여한 보스 수에 따라 지급됩니다.",
+      'boss.h.coc': "행동 강령",
+      'boss.cocp': "우리는 팀으로서 보스에 도전합니다. 이 규칙을 따르는 것은 운영진과 다른 모든 멤버에 대한 예의입니다. 모두에게 효율적이고 즐거운 보스 전투를 만드는 데 함께해 주세요.",
+
+      'fb.label': "섹션 05",
+      'fb.title': "피드백 및 문의",
+      'fb.intro': "질문, 제안, 또는 우려 사항이 있나요? 아래 채널 중 하나에 올려 주세요. 리더가 직접 답변하도록 노력합니다.",
+      'fb.qp': "규칙, 활동, 보상 또는 설명이 필요한 모든 내용을 물어보세요.",
+      'fb.sp': "길드를 개선하기 위한 아이디어와 피드백을 나눠 주세요.",
+
+      'web.label': "섹션 06",
+      'web.title': "웹사이트",
+      'reg.h': "멤버 프로필 등록",
+      'reg.visit': "로스터, 보스 출석, 멤버 도구를 확인하려면 ASTRA 웹사이트를 방문하세요.",
+      'reg.btn': "웹사이트 열기",
+      'reg.id': "사용자 이름과 비밀번호 모두 IGN을 사용하세요. 로그인한 후에는 사용자 이름을 수정하세요.",
+      'reg.help': "양식을 작성하는 중 문제나 질문이 있나요? 스크린샷을 찍어 #general-chat에 올려 주세요.",
+
+      'bon.title': "보너스 단계",
+      'bon.intro': "위의 내용을 읽고 이해했다면, 아래 문구를 복사해 디스코드의 #general-chat에 보내 주세요.",
+      'bon.msg': "나는 ASTRA의 일원이 된다는 것의 의미를 읽고 이해했습니다. 모두에게 시간을 내어 꼭 읽어 보시기를 권합니다.",
+      'bon.copy': "메시지 복사",
+      'bon.copied': "복사됨",
+      'bon.failed': "복사 실패"
+    },
+
+    jp: {
+      'meta.title': "ASTRA — メンバー情報",
+      'a11y.newtab': "(新しいタブで開きます)",
+      'lang.label': "言語",
+      'toc.label': "ハンドブックの目次",
+
+      'chip.brand': "ASTRA メンバー",
+
+      'toc.welcome': "ようこそ",
+      'toc.who': "私たちについて",
+      'toc.what': "活動内容",
+      'toc.rewards': "報酬と配分",
+      'toc.boss': "フィールドボスのルール",
+      'toc.feedback': "フィードバックとお問い合わせ",
+      'toc.website': "ウェブサイト",
+
+      'w.label': "ASTRA へようこそ",
+      'w.title': "ASTRA",
+      'w.tagline': "共に、私たちは立ち上がる。",
+      'w.value': "私たちは、公正・尊重・結束・透明性を大切にします。",
+      'w.grow': "共有のイベント、明確なルール、定期的なコミュニケーション、そして誠実な努力を通じて、私たちは共に強くなっていきます。",
+
+      'who.label': "セクション 01",
+      'who.title': "私たちについて",
+      'who.mission': "私たちの使命は、公正・尊重・結束を通じて互いをより強くすること。そして、共にゲームを楽しむことです。",
+      'who.welcome': "私たちの価値観を共有し、チームに貢献する意思のあるプレイヤーであれば、どのレベルの方も歓迎します。",
+
+      'fair.t': "公正",
+      'fair.sum': "報酬と機会は、努力、参加、そして成長の必要性を通じて得られます。同じルールがすべてのメンバーに適用されます。",
+      'fair.1l': "正直であってください。",
+      'fair.1b': "アイテムを得るために、盗んだり、嘘をついたり、偽りの言い訳をしたりしないでください。",
+      'fair.2l': "ギルドの支援を責任をもって利用してください。",
+      'fair.2b': "ギルドのアイテムは、あなたのキャラクターを強化するためのものです。詳細は「報酬と配分」をご覧ください。",
+
+      'res.t': "尊重",
+      'res.sum': "ギルド内でも、より広いコミュニティでも、他者には礼儀をもって接してください。",
+      'res.1l': "敬意をもって伝えてください。",
+      'res.1b': "フィードバックや意見の相違は、冷静に扱われる限り歓迎します。",
+      'res.2l': "暴言は禁止です。",
+      'res.2b': "メンバーに対する無礼、嫌がらせ、攻撃的な態度は容認されません。",
+      'res.3l': "ギルドの代表として品位を保ってください。",
+      'res.3b': "ワールドチャットでの口論、煽り、揉め事は行わないでください。挑発されても同様です。",
+      'res.4l': "ギルド内の事柄は非公開にしてください。",
+      'res.4b': "もめごとはリーダーに相談してください。",
+
+      'uni.t': "結束",
+      'uni.sum': "私たちは共に立ち上がります — 一つのギルド、一つのチーム。",
+      'uni.p': "できる範囲で貢献し、活動では協力し、仲間の成長を助けてください。",
+
+      'acc.t': "責任感",
+      'acc.sum': "約束を守り、自分の行動に責任を持ってください。ミスは学びの一部ですが、ルールを繰り返し軽視することは容認されません。",
+      'acc.1l': "Discordで積極的に活動してください",
+      'acc.1b': "— お知らせは、まずDiscordに投稿されます。",
+      'acc.2l': "参加可否を早めに伝えてください",
+      'acc.2b': "— 不在になる場合は、早めにリーダーに伝えてください。",
+      'acc.3l': "リーダーに状況を伝えてください",
+      'acc.3b': "— IGNの変更、キャラクターの売却、立場の変化など。",
+      'acc.4l': "プロフィールのメモを活用してください",
+      'acc.4b': "— 更新内容をギルドの仲間と共有してください（重要な変更は、引き続きリーダーに直接伝えてください）。",
+
+      'fun.t': "楽しさ",
+      'fun.sum': "これはゲームです。",
+      'fun.p': "楽しみ、思い出を作り、楽しく過ごしてください。ただし、他の人からその楽しみを奪わないように。",
+
+      'act.label': "セクション 02",
+      'act.title': "活動内容",
+      'disc.h': "Discordで積極的に活動",
+      'disc.p1': "Discordは私たちの連携の中心です。以下のすべての活動は、サーバーやワールドの状況に応じて変更される場合があります。スケジュール、グループ編成、集合の呼びかけ、リアルタイムの最新情報は、まずDiscordに投稿されます。",
+      'disc.p2': "イベントの前、途中、後に、こまめにDiscordを確認してください。",
+      'disc.p3': "お知らせを見逃すことは、機会を逃すことを意味します。",
+      'act.daily': "日常の活動",
+      'act.fb': "フィールドボスレイド",
+      'act.fbp': "参加を歓迎します。確認された参加を通じて出席ポイントが貯まります。",
+      'act.vc': "ボイスチャットの集まり",
+      'act.vcp': "- お互いを知り、情報をすばやく共有する場",
+      'act.weekly': "週間レイドとイベント",
+      'act.gvg': "ギルド対ギルド（GvG）",
+      'act.gvgp': "金曜日と土曜日に実施されます。参加可能なメンバーの出席が求められます。",
+      'act.yama': "ヤマ・ハード（125k CP）",
+      'act.yamap': "土曜日と日曜日に、組織されたレイドパーティーが実施されます。2日間で約4回、午後と夜に行われます。",
+      'act.gb': "ギルドボス",
+      'act.gbp': "日曜日に実施されます。通常、ラカジェス／トゥミエの後です。",
+      'act.world': "ワールド＆大陸バトル",
+      'act.kr': "同盟戦争＆レイド — クランシア",
+      'act.krp': "大規模な大陸バトルです。作戦と担当は、Discordで共有されます。",
+      'act.svs': "サーバー対抗 — 腐食の亀裂",
+      'act.svsp': "バヘルを巡る戦いです。開始の告知があったときに締め出されないよう、ダンジョンの時間を1〜2時間空けておいてください。",
+      'act.maint': "メンテナンス後のフィールドボス出現",
+      'act.maintp': "メンテナンスのたびにグループが割り当てられ、できるだけ多くのフィールドボスを討伐し、幅広くカバーします。",
+      'act.prog': "育成状況のモニタリング",
+      'act.progp': "メンバーの成長は毎週確認し、個人の成長とギルド全体の発展を把握します。戦闘力（CP）チェックは告知でお知らせします。",
+
+      'rew.label': "セクション 03",
+      'rew.title': "報酬と配分",
+      'rew.sub': "透明性、信頼、努力を基盤に",
+      'rew.intro': "ASTRAのすべての報酬は、努力によって得られます。集めたものをどのように配分するかについて、隠していることは何もありません。その流れは次のとおりです：",
+      'flow.1': "ボスを討伐する",
+      'flow.2': "ドロップ品を入手する",
+      'flow.3': "ドロップ品を売却する（ギルド内外を問わず）",
+      'flow.4': "資金を集める",
+      'flow.5': "努力と参加に基づき、資金をメンバーに分配する。",
+      'rew.more': "参加するほど、得られるものも増えます。それだけのことです。",
+      'rew.check': "フィールドボスの出席については、ウェブサイトで確認してください。過去の報酬は #distribution で確認できます。",
+      'rew.h.typical': "一般的な報酬の配分（フィールドボスの出席に基づく）",
+      'rew.p2': "一定期間の報酬を受け取るには、出席ポイントがその期間の1位メンバーの合計ポイントの少なくとも30%以上に達している必要があります。",
+      'rew.ex': "例：1位のメンバーが100ポイントの場合、対象となるには少なくとも30ポイントが必要です。",
+      'rew.h.hv': "高価値アイテム、ボス・アイテムログ、コレクション",
+      'rew.hvp': "高価値アイテム、アイテム／ボス・アイテムログ、コレクションのピースは、戦闘力（CP）とキャラクターの必要性に基づいて配分されます。対象となるメンバーのうち、最も恩恵を受けられるメンバーが優先されます。",
+      'rew.h.new': "新規メンバー",
+      'rew.newp': "新規メンバーの試用期間は1〜3週間です。",
+      'rew.h.auction': "ギルドオークション",
+      'rew.auctionp': "ゲーム内のギルドオークションは、試用期間中のメンバーを含め、全員が利用できます。",
+      'rew.h.where': "Discordでの対応場所",
+      'chp.dist': "一部のアイテムの扱いについての詳細は、こちらで確認できます。",
+      'chp.buy': "ギルド倉庫から必要なアイテムをリクエストしてください。特に複数の在庫がある場合に便利です。投稿する前に、必要な形式を過去の投稿で確認してください。",
+      'chp.raffle1': "リーダーが、アビリティブックやマウントなど、ラッフル対象のアイテムを投稿します。欲しくて購入できるアイテムにのみ投票してください。",
+      'chp.raffle2': "当選すると、割引価格でアイテムを購入する機会が得られます。投票する前にダイヤを十分に用意してください。何も考えずにクリックしないでください。",
+      'chp.raffle3': "当選しても支払えない場合、アイテムを失うことがあり、今後のラッフルへの参加資格にも影響する可能性があります。",
+      'chp.log': "登録または消費されるギルド提供のアイテムについて、使用前後のスクリーンショットを投稿してください：",
+      'log.1': "アイテムコレクション／コレクションログ",
+      'log.2': "マウント",
+      'log.3': "パッシブスキル",
+      'log.4': "アビリティとスキルブック",
+      'log.5': "同じシステムを使用するその他のアイテム",
+      'log.howto': "記録の方法：",
+      'log.s1': "アイテムを使用する前に、まだ習得・登録されていないことがわかるスロットをスクリーンショットしてください。",
+      'log.s2': "アイテムを使用または登録してください。",
+      'log.s3': "習得・登録された結果がわかるスクリーンショットを撮ってください。",
+      'log.s4': "両方のスクリーンショットを該当のチャンネルに投稿してください。",
+      'log.ex': "例：ギルドがスキルブックを割引価格で販売しました。空のスキルスロットをスクリーンショットし、スキルを習得し、習得後のスキルをスクリーンショットしてください。",
+      'log.end': "各チャンネルの既存の投稿を確認し、求められている形式を確かめてください。",
+      'gs.kicker': "重要",
+      'gs.title': "ギルド支援アイテム",
+      'gs.p': "ギルドから受け取ったアイテム（無料、割引、ラッフル、またはギルド倉庫からのもの）は、あなた自身のキャラクターの成長のためのものです。",
+      'gs.1': "リーダーの事前承認なしに、ギルド支援アイテムを再販売しないでください。",
+      'gs.2': "アイテムを交換、アップグレード、または価値を再投資したい場合は、売る前にリーダーに相談してください。",
+      'gs.3': "利益を得るためにギルド支援アイテムを再販売すること（例：割引で買って市場価格で売る）は、信頼への裏切りであり、ギルド内での立場に影響します。",
+      'gs.4': "ゲーム内ギルドオークションで獲得したアイテムはあなたのものであり、上記の制限の多くに縛られるわけではありません。ただし、個人の利益ではなく、キャラクターの成長のために使うことが引き続き求められます。",
+
+      'boss.label': "セクション 04",
+      'boss.title': "フィールドボスのルール",
+      'boss.intro': "フィールドボスは共通のリズムで進みます。集合に参加する前に、ルールを確認してください。",
+      'boss.h.disc': "Discordと通知",
+      'boss.d1': "ギルドのDiscord設定、特にボスタイマーチャンネルとBotに慣れておいてください。",
+      'boss.d2': "ボスの出現の数分前に、ボイスチャットラウンジで自動アラームが鳴ります。",
+      'boss.h.order': "パーティーリーダーの優先順位",
+      'boss.orderp': "パーティーリーダーは、次の順に優先されます：",
+      'boss.o1': "ギルドリーダー",
+      'boss.o2': "オフィサー",
+      'boss.o3': "ギルドサポート",
+      'boss.o4': "シニア",
+      'boss.o5': "戦闘力が最も高いメンバー",
+      'boss.ordern': "ASTRAのウェブサイトのロスターで、各役割の担当者と最近の変更点を確認してください。",
+      'boss.h.rally': "集合とタイミング",
+      'boss.r1': "ボスのリスポーンの1〜2分前には、集合地点に到着してください。",
+      'boss.r2': "一部のボスは遠くに出現します。移動時間を考慮してください。特にテレポートストーンがない場合は注意してください。",
+      'boss.r3': "ボスの出現時に、集合のスクリーンショットを撮ります。これは出席確認に使われます。",
+      'boss.r4': "ボスを倒した後、ドロップ品のスクリーンショットを撮ります。",
+      'boss.r5': "ボスの出現前に集合に参加できなかった場合は、遅刻とみなされます。",
+      'boss.h.late': "遅刻者への対応",
+      'boss.latep': "リーダーは遅れて来たメンバーへの配慮に努めます（例：集合のスクリーンショットの撮り直し）。ただし、これは保証されるものではありません。遅れての参加は、撮り直したスクリーンショットにあなたが写っている場合にのみ出席ポイントが付与されます。遅刻が繰り返される場合、今後の判断に影響することがあります。",
+      'boss.h.part': "参加",
+      'boss.p1': "戦闘に参加するつもりがある場合にのみ、集合に参加してください。",
+      'boss.h.open': "オープンボス",
+      'boss.openp': "ヴェナトゥス、ヴィオレント、エゴはオープンボスです。厳密な集合なしで、誰でも参加できます。オープンボスの一覧は変わることがあるため、Discordのお知らせで最新情報を確認してください。",
+      'boss.h.loot': "ドロップ品と保管",
+      'boss.l1': "指名されたリーダーは、ボス（またはボスセット）を倒した後、ドロップ品を回収し、ギルド倉庫に保管する責任を負います。",
+      'boss.l2': "すべてのアイテムはギルド倉庫に保管してください。最新の例外事項は #boss-rules で確認してください。",
+      'boss.l3': "リーダーは、例外として認められたアイテムを保持することができます。",
+      'boss.h.team': "チームでの協力",
+      'boss.teamp': "役割を分担すること（ドロップ品の保管、タイマー管理、スクリーンショットの撮影）が、フィールドボスをスムーズに進める鍵です。タイマーやスクリーンショットを手伝える場合は、チームに知らせてください。",
+      'boss.h.att': "出席と修正",
+      'boss.attp': "集合とドロップ品のスクリーンショットは #boss-logs に投稿されます。これが出席記録です。",
+      'boss.a1': "ボスごとに、終了後に #boss-logs で自分の出席を再確認してください。",
+      'boss.a2': "特にパーティーに入っていなかった場合は、証拠用のバックアップスクリーンショットを必ず保管してください。",
+      'boss.a3': "修正を依頼する場合は、バックアップのスクリーンショットを #boss-logs に投稿し、リーダーにタグを付けてください。",
+      'boss.a4': "出席ポイントは、参加したボスの数に基づいて付与されます。",
+      'boss.h.coc': "行動規範",
+      'boss.cocp': "私たちはチームとしてボスに挑みます。これらのルールを守ることは、運営陣と他のすべてのメンバーへの礼儀です。全員にとって効率的で楽しいボス戦を作るため、ご協力ください。",
+
+      'fb.label': "セクション 05",
+      'fb.title': "フィードバックとお問い合わせ",
+      'fb.intro': "ご質問、ご提案、ご懸念はありますか？ 以下のいずれかのチャンネルに投稿してください。リーダーが直接お答えするよう努めます。",
+      'fb.qp': "ルール、活動、報酬、または説明が必要なことについて質問してください。",
+      'fb.sp': "ギルドを良くするためのアイデアやフィードバックを共有してください。",
+
+      'web.label': "セクション 06",
+      'web.title': "ウェブサイト",
+      'reg.h': "メンバープロフィールの登録",
+      'reg.visit': "ロスター、ボスの出席、メンバー向けツールは、ASTRAのウェブサイトでご確認ください。",
+      'reg.btn': "ウェブサイトを開く",
+      'reg.id': "ユーザー名とパスワードは、どちらもIGNを使用してください。ログインできたら、ユーザー名を編集してください。",
+      'reg.help': "フォームの入力で問題や質問がある場合は、スクリーンショットを撮って #general-chat に投稿してください。",
+
+      'bon.title': "ボーナスステップ",
+      'bon.intro': "上記の内容を読み、理解したら、以下の文章をコピーして Discord の #general-chat に投稿してください。",
+      'bon.msg': "私はASTRAのメンバーであることの意味を読み、理解しました。皆さんにも、ぜひ時間をとって読んでいただくことをおすすめします。",
+      'bon.copy': "メッセージをコピー",
+      'bon.copied': "コピーしました",
+      'bon.failed': "コピーできませんでした"
+    }
+  };
+
+  var LANGS = ['en', 'ko', 'jp'];
+  var HTML_LANG = { en: 'en', ko: 'ko', jp: 'ja' };
+  var STORAGE_KEY = 'astra-member-lang';
+  var CHANNEL_RE = /#[a-z][a-z0-9-]*/g;
+  var currentLang = 'en';
+  var langButtons = Array.prototype.slice.call(doc.querySelectorAll('.lang button[data-lang]'));
+  var i18nEls = Array.prototype.slice.call(doc.querySelectorAll('[data-i18n]'));
+  var i18nAriaEls = Array.prototype.slice.call(doc.querySelectorAll('[data-i18n-aria]'));
+
+  function translate(key, lang) {
+    var dict = I18N[lang] || {};
+    var val = dict[key];
+    if (val === undefined || val === null || val === '') {
+      val = I18N.en[key];
+    }
+    return val;
+  }
+
+  /* Wraps every "#channel-name" in a styled span so channels scan easily
+     in any language. Skips nodes that are already marked. */
+  function markChannels(node) {
+    if (node.classList && node.classList.contains('channel')) return;
+    var walker = doc.createTreeWalker(node, NodeFilter.SHOW_TEXT, null);
+    var targets = [];
+    var n;
+    while ((n = walker.nextNode())) {
+      if (n.nodeValue && n.nodeValue.indexOf('#') !== -1) targets.push(n);
+    }
+    targets.forEach(function (t) {
+      var text = t.nodeValue;
+      var frag = doc.createDocumentFragment();
+      var last = 0;
+      var m;
+      CHANNEL_RE.lastIndex = 0;
+      while ((m = CHANNEL_RE.exec(text))) {
+        if (m.index > last) frag.appendChild(doc.createTextNode(text.slice(last, m.index)));
+        var span = doc.createElement('span');
+        span.className = 'ch';
+        span.textContent = m[0];
+        frag.appendChild(span);
+        last = m.index + m[0].length;
+      }
+      if (last < text.length) frag.appendChild(doc.createTextNode(text.slice(last)));
+      if (t.parentNode) t.parentNode.replaceChild(frag, t);
+    });
+  }
+
+  function applyLang(lang, persist) {
+    if (LANGS.indexOf(lang) === -1) lang = 'en';
+    currentLang = lang;
+
+    i18nEls.forEach(function (el) {
+      var val = translate(el.getAttribute('data-i18n'), lang);
+      if (typeof val === 'string') {
+        el.textContent = val;
+        markChannels(el);
+      }
+    });
+
+    i18nAriaEls.forEach(function (el) {
+      var val = translate(el.getAttribute('data-i18n-aria'), lang);
+      if (typeof val === 'string') {
+        el.setAttribute('aria-label', val);
+      }
+    });
+
+    root.setAttribute('lang', HTML_LANG[lang]);
+    doc.title = translate('meta.title', lang);
+
+    langButtons.forEach(function (btn) {
+      btn.setAttribute('aria-pressed', btn.getAttribute('data-lang') === lang ? 'true' : 'false');
+    });
+
+    if (persist) {
+      try {
+        localStorage.setItem(STORAGE_KEY, lang);
+      } catch (err) {
+        /* storage unavailable: choice applies for this page view only */
+      }
+    }
+  }
+
+  langButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      applyLang(btn.getAttribute('data-lang'), true);
+    });
+  });
+
+  var savedLang = null;
+  try {
+    savedLang = localStorage.getItem(STORAGE_KEY);
+  } catch (err) {
+    savedLang = null;
+  }
+
+  applyLang(savedLang && LANGS.indexOf(savedLang) !== -1 ? savedLang : 'en', false);
+
+  /* =========================================================
+     6. HANDBOOK NAVIGATION
+     Highlights the section in view; on small screens the
+     section strip appears after the welcome block.
+     ========================================================= */
+
+  var toc = doc.getElementById('toc');
+  var tocLinks = toc ? Array.prototype.slice.call(toc.querySelectorAll('a[href^="#"]')) : [];
+  var heroEl = doc.getElementById('welcome');
+
+  function setActive(id) {
+    tocLinks.forEach(function (a) {
+      if (a.getAttribute('href') === '#' + id) {
+        a.setAttribute('aria-current', 'true');
+      } else {
+        a.removeAttribute('aria-current');
+      }
+    });
+  }
+
+  if (tocLinks.length && 'IntersectionObserver' in window) {
+    var tocTargets = tocLinks
+      .map(function (a) { return doc.getElementById(a.getAttribute('href').slice(1)); })
+      .filter(Boolean);
+
+    var navIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
+
+    tocTargets.forEach(function (t) { navIO.observe(t); });
+  }
+
+  setActive('welcome');
+
+  var tocTicking = false;
+
+  function updateTocVisibility() {
+    tocTicking = false;
+    if (!toc) return;
+    var threshold = heroEl ? heroEl.offsetHeight * 0.6 : 300;
+    toc.classList.toggle('is-on', window.scrollY > threshold);
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!tocTicking) {
+      tocTicking = true;
+      window.requestAnimationFrame(updateTocVisibility);
+    }
+  }, { passive: true });
+
+  updateTocVisibility();
+
+  /* =========================================================
+     7. BONUS STEP — COPY MESSAGE
+     Uses the Clipboard API; falls back to a hidden textarea.
+     If copying is blocked, the message text is selected instead.
+     ========================================================= */
+
+  var copyBtn = doc.getElementById('copy-btn');
+  var bonusMsg = doc.getElementById('bonus-msg');
+  var copyTimer = null;
+
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text);
+    }
+    return new Promise(function (resolve, reject) {
+      var ta = doc.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.top = '0';
+      ta.style.left = '-9999px';
+      ta.style.opacity = '0';
+      doc.body.appendChild(ta);
+      ta.select();
+      var ok = false;
+      try {
+        ok = doc.execCommand('copy');
+      } catch (err) {
+        ok = false;
+      }
+      doc.body.removeChild(ta);
+      if (ok) {
+        resolve();
+      } else {
+        reject(new Error('copy unavailable'));
+      }
+    });
+  }
+
+  function setCopyLabel(key) {
+    if (!copyBtn) return;
+    copyBtn.textContent = translate(key, currentLang);
+    window.clearTimeout(copyTimer);
+    copyTimer = window.setTimeout(function () {
+      copyBtn.textContent = translate('bon.copy', currentLang);
+    }, 2200);
+  }
+
+  function selectMessage() {
+    if (!bonusMsg || !window.getSelection || !doc.createRange) return;
+    var range = doc.createRange();
+    range.selectNodeContents(bonusMsg);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+
+  if (copyBtn && bonusMsg) {
+    copyBtn.addEventListener('click', function () {
+      var text = bonusMsg.textContent.trim();
+      copyText(text).then(function () {
+        setCopyLabel('bon.copied');
+      }, function () {
+        selectMessage();
+        setCopyLabel('bon.failed');
+      });
+    });
+  }
+
+})();
+</script>
+</body>
+</html>
