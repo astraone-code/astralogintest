@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#05070d">
 <meta name="color-scheme" content="dark">
 <meta name="description" content="ASTRA guild member handbook: who we are, what we do, rewards and distribution, field boss rules, and where to get help.">
@@ -60,6 +60,7 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100dvh;
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-sans);
@@ -154,9 +155,9 @@ a { color: var(--blue-text); }
 
 .topbar {
   position: fixed;
-  top: 16px;
-  left: 16px;
-  right: 16px;
+  top: max(16px, env(safe-area-inset-top));
+  left: max(16px, env(safe-area-inset-left));
+  right: max(16px, env(safe-area-inset-right));
   z-index: 60;
   display: flex;
   justify-content: space-between;
@@ -221,7 +222,7 @@ a { color: var(--blue-text); }
   letter-spacing: 0.06em;
   line-height: 1;
   padding: 8px 11px;
-  min-height: 30px;
+  min-height: 44px;
   cursor: pointer;
   transition: background-color 0.25s ease, color 0.25s ease;
 }
@@ -238,7 +239,7 @@ a { color: var(--blue-text); }
 /* Mobile and tablet: a pinned strip that appears after the hero */
 .toc {
   position: fixed;
-  top: 50px;
+  top: 72px;
   left: 0;
   right: 0;
   z-index: 55;
@@ -275,7 +276,7 @@ a { color: var(--blue-text); }
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  min-height: 34px;
+  min-height: 44px;
   padding: 6px 12px;
   border: 1px solid var(--card-line);
   border-radius: 999px;
@@ -315,7 +316,7 @@ main {
 .section {
   position: relative;
   padding: 84px 0;
-  scroll-margin-top: 110px;
+  scroll-margin-top: 140px;
 }
 
 .section + .section { border-top: 1px solid var(--line); }
@@ -1010,7 +1011,7 @@ ol.num > li:first-child::before { top: 4px; }
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  min-height: 34px;
+  min-height: 40px;
   padding: 8px 14px;
   border: 1px solid var(--card-line);
   border-radius: 999px;
@@ -1241,8 +1242,8 @@ html:lang(ja) .notice h3 { font-size: 24px; }
   .section { padding: 74px 0; }
   .hero { padding: 132px 0 74px; }
   .wrap { padding: 0 20px; }
-  .topbar { top: 12px; left: 12px; right: 12px; }
-  .toc { top: 50px; }
+  .topbar { top: max(12px, env(safe-area-inset-top)); left: max(12px, env(safe-area-inset-left)); right: max(12px, env(safe-area-inset-right)); }
+  .toc { top: 72px; }
   .chip {
     height: 30px;
     padding: 0 12px;
@@ -1453,6 +1454,11 @@ html:lang(ja) .notice h3 { font-size: 24px; }
 
   h2, h3, .subhead, .kicker { break-after: avoid; }
 }
+
+/* ---------- Large-screen scaling (Batch A) ---------- */
+@media (min-width: 1800px) { body { zoom: 1.15; } }
+@media (min-width: 2600px) { body { zoom: 1.35; } }
+@media (min-width: 3400px) { body { zoom: 1.55; } }
 </style>
 </head>
 <body>
